@@ -18,7 +18,7 @@ Hawala is a blockchain-based payment application that brings the centuries-old t
 
 ```bash
 # Clone the repo (and several centuries of financial tradition)
-git clone https://github.com/hawala/hawala
+git clone https://github.com/omsandippatil/hawala
 
 # Install dependencies (we've come a long way from handshakes)
 npm install
