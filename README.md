@@ -93,4 +93,4 @@ We are not responsible for:
 
 Remember: Trust is the original blockchain.
 
-*Built with ❤️ and centuries of financial wisdom
+Built with ❤️ and centuries of financial wisdom
