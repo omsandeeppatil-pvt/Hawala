@@ -30,9 +30,6 @@ export default function Login() {
       const address = await signer.getAddress();
       setWalletAddress(address); // Save wallet address
       setError(null);
-      
-      // Redirect to Home page on successful login
-      router.push("/home");
     } catch (err) {
       setError("Failed to connect wallet. Please try again.");
     }
@@ -41,6 +38,13 @@ export default function Login() {
   useEffect(() => {
     checkMetaMaskAvailability();
   }, []);
+
+  useEffect(() => {
+    // Redirect to Home if wallet is connected
+    if (walletAddress) {
+      router.push("/home");
+    }
+  }, [walletAddress, router]);
 
   return (
     <div style={{ maxWidth: "500px", margin: "0 auto", textAlign: "center", padding: "2rem" }}>

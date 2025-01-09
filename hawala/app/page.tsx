@@ -1,13 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { ethers } from "ethers";
+import { useRouter } from "next/navigation";
 
-export default function LoginWithMetaMask() {
+export default function Login() {
   const [walletAddress, setWalletAddress] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
+  const router = useRouter();
 
-  // Check if MetaMask is installed
+  // Check if MetaMask is available
   const checkMetaMaskAvailability = () => {
     if (typeof window.ethereum === "undefined") {
       setError("MetaMask is not installed. Please install it from https://metamask.io.");
@@ -33,19 +35,21 @@ export default function LoginWithMetaMask() {
     }
   };
 
-  // Disconnect Wallet
-  const disconnectWallet = () => {
-    setWalletAddress(null);
-    setError(null);
-  };
-
   useEffect(() => {
     checkMetaMaskAvailability();
   }, []);
 
+  useEffect(() => {
+    // Redirect to Home if wallet is connected
+    if (walletAddress) {
+      router.push("/home");
+    }
+  }, [walletAddress, router]);
+
   return (
     <div style={{ maxWidth: "500px", margin: "0 auto", textAlign: "center", padding: "2rem" }}>
       <h1>Login with MetaMask</h1>
+
       {!walletAddress ? (
         <>
           <button
@@ -66,24 +70,7 @@ export default function LoginWithMetaMask() {
           {error && <p style={{ color: "red", marginTop: "1rem" }}>{error}</p>}
         </>
       ) : (
-        <>
-          <p style={{ marginTop: "1rem" }}>Connected as: <strong>{walletAddress}</strong></p>
-          <button
-            onClick={disconnectWallet}
-            style={{
-              padding: "1rem 2rem",
-              backgroundColor: "#ccc",
-              color: "#333",
-              border: "none",
-              borderRadius: "8px",
-              cursor: "pointer",
-              fontSize: "1rem",
-              marginTop: "1rem",
-            }}
-          >
-            Disconnect Wallet
-          </button>
-        </>
+        <p style={{ marginTop: "1rem" }}>Connected as: <strong>{walletAddress}</strong></p>
       )}
     </div>
   );
