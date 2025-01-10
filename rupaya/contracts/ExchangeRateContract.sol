@@ -1,5 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
+// Correct import for Chainlink AggregatorV3Interface
+import "@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol";
 node_modules/@chainlink/contracts/src/v0.8/interfaces/AggregatorV3Interface.sol
 
 import "@openzeppelin/contracts/access/Ownable.sol";
