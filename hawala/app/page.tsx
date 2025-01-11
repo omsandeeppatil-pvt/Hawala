@@ -69,10 +69,13 @@ const Login: React.FC = () => {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-4">
       <Card className="w-full max-w-sm bg-white/80 backdrop-blur-sm">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-3xl font-light text-center tracking-tight">
-            hawala
+        <CardHeader className="space-y-2">
+          <CardTitle className="text-4xl font-bold text-center tracking-tight">
+            Hawala
           </CardTitle>
+          <p className="text-center text-gray-500 font-light">
+            The future of seamless crypto transactions
+          </p>
         </CardHeader>
         <CardContent className="space-y-4 pt-4">
           {error && (

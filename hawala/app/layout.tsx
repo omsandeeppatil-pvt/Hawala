@@ -13,23 +13,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className="bg-background text-foreground">
-        {/* Header with Logo */}
-        <header className="flex items-center justify-center p-4 bg-gray-100 shadow-sm">
-          <img
-            src="/logo.png" // Ensure you place your logo image in the public folder
-            alt="Hawala Logo"
-            className="w-6 h-6 mr-2"
-          />
-          <h1 className="text-xl font-bold text-gray-800">Hawala</h1>
-        </header>
-
         {/* Main Content */}
         <main className="p-4">{children}</main>
-
-        {/* Footer */}
-        <footer className="text-center text-sm text-gray-500 mt-4">
-          <p>&copy; {new Date().getFullYear()} Hawala</p>
-        </footer>
       </body>
     </html>
   );
