@@ -12,9 +12,9 @@
     "class-variance-authority": "^0.7.0",
     "ethers": "^6.13.5",
     "lucide-react": "^0.471.0",
-    "next": "^13.4.0",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "next": "^15.1.4",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3.0.0",

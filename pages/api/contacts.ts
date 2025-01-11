@@ -8,6 +8,7 @@ let contacts = [
   { id: 5, name: "Yash K", amount: "150", image: "" },
 ];
 
+
 export default function handler(req: NextApiRequest, res: NextApiResponse) {
   if (req.method === "GET") {
     res.status(200).json(contacts);

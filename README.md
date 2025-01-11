@@ -1,96 +1,40 @@
-# Hawala 🌙
-*Ancient wisdom meets modern cryptography*
+This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## What is this sorcery? 🔮
+## Getting Started
 
-Hawala is a blockchain-based payment application that brings the centuries-old trust-based hawala system into the digital age. Built on the Ethereum network, it's like your great-grandfather's handshake agreement got a computer science degree and decided to disrupt traditional finance.
+First, run the development server:
 
-## Features 🌟
-
-- **Trust Circles**: Create your own network of trusted partners, just like the original hawala system (but with more cryptography and fewer camels)
-- **Instant Transfers**: Move money faster than ancient merchants crossed the Silk Road
-- **Smart Contracts**: Traditional honor codes wrapped in military-grade encryption
-- **Multi-Currency Support**: Because your money should be as borderless as your ancestors' trade routes
-- **Bank Integration**: Bridging the gap between the old world and the new (they still haven't caught up)
-- **Zero-Knowledge Proofs**: Privacy so good, even the ancient money transferors would be impressed
-
-## Installation 🛠️
+```bash 
+npm install next react react-dom
+```
 
 ```bash
-# Clone the repo (and several centuries of financial tradition)
-git clone https://github.com/omsandippatil/hawala
-
-# Install dependencies (we've come a long way from handshakes)
-npm install
-
-# Set up your environment variables (secrets safer than ancient vaults)
-cp .env.example .env
-
-# Start the app
-npm start
+npm run dev
+# or
+yarn dev
+# or
+pnpm dev
+# or
+bun dev
 ```
 
-## Prerequisites 📋
+Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-- Node.js v16+ (Newer than the oldest profession, older than your last crypto investment)
-- Ethereum Wallet (MetaMask preferred, but we respect tradition)
-- Basic understanding of blockchain (or at least as much as you understand your grandmother's recipes)
-- Honor (non-negotiable)
+You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-## Configuration ⚙️
+This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
 
-1. Create a `.env` file with your credentials:
-```
-ETHEREUM_NETWORK=mainnet
-API_KEY=your_api_key_here
-WALLET_SECRET=your_secret_here_please_dont_share
-TRUST_LEVEL=absolute
-```
+## Learn More
 
-2. Configure your trust circles in `config/trust.js`
-3. Reflect on centuries of financial evolution
-4. Embrace the future
+To learn more about Next.js, take a look at the following resources:
 
-## Security 🔒
+- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
+- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
 
-We take security as seriously as a medieval merchant took their word. Our modern approach includes:
+You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-- End-to-end encryption
-- Validated by network consensus
-- Protected by blockchain immutability
-- Backed by centuries of trust-based practices
-- Guarded by digital algorithms (and tradition)
+## Deploy on Vercel
 
-## Contributing 🤝
+The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
 
-Want to contribute? We welcome:
-- Bug reports (we call them "trust opportunities")
-- Pull requests (vetted like a traditional hawaladar)
-- Cultural insights
-- Code improvements (must be as reliable as a merchant's handshake)
-
-## License 📄
-
-MIT License (because even ancient systems need modern protection)
-
-## Support 🆘
-
-If you encounter any issues:
-1. Check our documentation
-2. Consult your trust circle
-3. Practice patience (like our ancestors)
-4. If all else fails, open an issue
-
-## Disclaimer ⚠️
-
-We are not responsible for:
-- Market volatility
-- Your trust circle choices
-- The existential crisis that comes with modernizing ancient systems
-- Your family's reaction when you explain what you do
-
-## Final Words 🌙
-
-Remember: Trust is the original blockchain.
-
-Built with ❤️ and centuries of financial wisdom
+Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
