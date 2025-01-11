@@ -1,11 +1,11 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 
 let contacts = [
-  { id: 1, name: "Durva D", amount: "120", image: "" },
-  { id: 2, name: "Arjun R", amount: "50", image: "" },
-  { id: 3, name: "Aditya N", amount: "200", image: "" },
-  { id: 4, name: "Shivam M", amount: "75", image: "" },
-  { id: 5, name: "Yash K", amount: "150", image: "" },
+  { id: 1, name: "Durva D", amount: "120", image: "https://github.com/omsandippatil/Hawala/blob/main/img/avatar-5.png?raw=true" },
+  { id: 2, name: "Arjun R", amount: "50", image: "https://github.com/omsandippatil/Hawala/blob/main/img/avatar-1.png?raw=true" },
+  { id: 3, name: "Aditya N", amount: "200", image: "https://github.com/omsandippatil/Hawala/blob/main/img/avatar-2.png?raw=true" },
+  { id: 4, name: "Shivam M", amount: "75", image: "https://github.com/omsandippatil/Hawala/blob/main/img/avatar-3.png?raw=true" },
+  { id: 5, name: "Yash K", amount: "150", image: "https://github.com/omsandippatil/Hawala/blob/main/img/avatar-4.png?raw=true" },
 ];
 
 

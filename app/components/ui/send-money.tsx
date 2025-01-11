@@ -15,9 +15,9 @@ const SendMoney = ({ onClose }: { onClose: () => void }) => {
 
   // Sample contacts - in real app would come from props or API
   const contacts = [
-    { id: 1, name: 'Prakash Magesh', image: '', lastAmount: '2,500' },
-    { id: 2, name: 'Irfan Shaikh', image: '', lastAmount: '1,800' },
-    { id: 3, name: 'Soham PAtil', image: '', lastAmount: '3,200' },
+    { id: 1, name: 'Prakash Magesh', image: 'https://github.com/omsandippatil/Hawala/blob/main/img/avatar-3.png?raw=true', lastAmount: '2,500' },
+    { id: 2, name: 'Irfan Shaikh', image: 'https://github.com/omsandippatil/Hawala/blob/main/img/avatar-2.png?raw=true', lastAmount: '1,800' },
+    { id: 3, name: 'Soham PAtil', image: 'https://github.com/omsandippatil/Hawala/blob/main/img/avatar-1.png?raw=true', lastAmount: '3,200' },
   ];
 
   const handleSend = async () => {

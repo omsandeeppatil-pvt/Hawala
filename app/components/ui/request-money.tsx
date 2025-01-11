@@ -16,9 +16,9 @@ const RequestMoney = ({ onClose }: { onClose: () => void }) => {
 
   // Sample contacts - in real app would come from props or API
   const contacts = [
-    { id: 1, name: 'Durva Dongre', image: '', lastAmount: '2,500' },
-    { id: 2, name: 'Arjun Rane', image: '', lastAmount: '1,800' },
-    { id: 3, name: 'Arya Patil', image: '', lastAmount: '3,200' },
+    { id: 1, name: 'Durva Dongre', image: 'https://github.com/omsandippatil/Hawala/blob/main/img/avatar-5.png?raw=true', lastAmount: '2,500' },
+    { id: 2, name: 'Arjun Rane', image: 'https://github.com/omsandippatil/Hawala/blob/main/img/avatar-4.png?raw=true', lastAmount: '1,800' },
+    { id: 3, name: 'Arya Patil', image: 'https://github.com/omsandippatil/Hawala/blob/main/img/avatar-3.png?raw=true', lastAmount: '3,200' },
   ];
 
   const handleRequest = async () => {
