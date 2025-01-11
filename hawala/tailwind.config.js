@@ -1,19 +1,19 @@
-import type { Config } from 'tailwindcss';
-
-const config: Config = {
-  darkMode: ['class'], // Enable dark mode with a class-based strategy
+/** @type {import('tailwindcss').Config} */
+module.exports = {
+  darkMode: ['class'], // Enable dark mode with class-based strategy
   content: [
-    './app/**/*.{ts,tsx}',  // Include all TypeScript/TSX files in the app folder
-    './pages/**/*.{ts,tsx}',  // Include all TypeScript/TSX files in the pages folder
-    './components/**/*.{ts,tsx}',  // Include all TypeScript/TSX files in the components folder
-    './public/**/*.{html,js}',  // Include HTML and JS files in the public folder
+    './app/**/*.{ts,tsx}',  // Include all TypeScript/TSX files inside app folder
+    './pages/**/*.{ts,tsx}',  // Include all TypeScript/TSX files inside pages folder
+    './components/**/*.{ts,tsx}',  // Include all TypeScript/TSX files inside components folder
+    './src/**/*.{ts,tsx}',  // Include all TypeScript/TSX files inside src folder
+    './public/**/*.{html,js}',  // Include any static files using Tailwind classes
   ],
   theme: {
     container: {
       center: true,
-      padding: '2rem',
+      padding: '2rem', // Use string for padding values
       screens: {
-        '2xl': '1400px',
+        '2xl': '1400px', // Ensure screen widths are strings
       },
     },
     extend: {
@@ -75,5 +75,3 @@ const config: Config = {
   },
   plugins: [],
 };
-
-export default config;

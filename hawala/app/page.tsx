@@ -1,37 +1,64 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { ethers } from "ethers";
-import { useRouter } from "next/navigation";
+import React, { useState, useEffect } from "react";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Alert, AlertDescription } from "@/components/ui/alert";
 
-export default function Login() {
-  const [walletAddress, setWalletAddress] = useState<string | null>(null);
-  const [error, setError] = useState<string | null>(null);
-  const router = useRouter();
+// Proper type declaration for ethereum
+declare global {
+  interface Window {
+    ethereum: {
+      request: (args: { method: string; params?: any[] }) => Promise<any>;
+      isMetaMask?: boolean;
+    };
+  }
+}
+
+const Login: React.FC = () => {
+  const [walletAddress, setWalletAddress] = useState<string>("");
+  const [error, setError] = useState<string>("");
+  const [isLoading, setIsLoading] = useState<boolean>(false);
 
   // Check if MetaMask is available
-  const checkMetaMaskAvailability = () => {
-    if (typeof window.ethereum === "undefined") {
-      setError("MetaMask is not installed. Please install it from https://metamask.io.");
+  const checkMetaMaskAvailability = (): boolean => {
+    if (!window?.ethereum?.isMetaMask) {
+      setError("MetaMask is not installed. Please install it from metamask.io");
+      return false;
     }
+    return true;
   };
 
   // Connect MetaMask Wallet
-  const connectWallet = async () => {
+  const connectWallet = async (): Promise<void> => {
     try {
-      if (!window.ethereum) {
-        setError("MetaMask is not available.");
+      setIsLoading(true);
+      setError("");
+
+      if (!checkMetaMaskAvailability()) {
         return;
       }
 
-      const provider = new ethers.providers.Web3Provider(window.ethereum);
-      await provider.send("eth_requestAccounts", []); // Request wallet connection
-      const signer = provider.getSigner();
-      const address = await signer.getAddress();
-      setWalletAddress(address); // Save wallet address
-      setError(null);
+      // Request account access
+      const accounts = await window.ethereum.request({
+        method: "eth_requestAccounts"
+      });
+
+      if (accounts[0]) {
+        setWalletAddress(accounts[0]);
+        // Navigate to home (implement your navigation logic here)
+        window.location.href = "/home";
+      }
     } catch (err) {
+      console.error("Connection Error:", err);
       setError("Failed to connect wallet. Please try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -39,39 +66,67 @@ export default function Login() {
     checkMetaMaskAvailability();
   }, []);
 
-  useEffect(() => {
-    // Redirect to Home if wallet is connected
-    if (walletAddress) {
-      router.push("/home");
-    }
-  }, [walletAddress, router]);
-
   return (
-    <div style={{ maxWidth: "500px", margin: "0 auto", textAlign: "center", padding: "2rem" }}>
-      <h1>Login with MetaMask</h1>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100 p-4">
+      <Card className="w-full max-w-sm bg-white/80 backdrop-blur-sm">
+        <CardHeader className="space-y-1">
+          <CardTitle className="text-3xl font-light text-center tracking-tight">
+            hawala
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-4 pt-4">
+          {error && (
+            <Alert variant="destructive" className="text-sm">
+              <AlertDescription>{error}</AlertDescription>
+            </Alert>
+          )}
 
-      {!walletAddress ? (
-        <>
-          <button
-            onClick={connectWallet}
-            style={{
-              padding: "1rem 2rem",
-              backgroundColor: "#f6851b",
-              color: "#fff",
-              border: "none",
-              borderRadius: "8px",
-              cursor: "pointer",
-              fontSize: "1rem",
-              marginTop: "1rem",
-            }}
-          >
-            Connect MetaMask
-          </button>
-          {error && <p style={{ color: "red", marginTop: "1rem" }}>{error}</p>}
-        </>
-      ) : (
-        <p style={{ marginTop: "1rem" }}>Connected as: <strong>{walletAddress}</strong></p>
-      )}
+          {!walletAddress ? (
+            <Button
+              className="w-full h-12 bg-black hover:bg-gray-800 text-white font-light"
+              onClick={connectWallet}
+              disabled={isLoading}
+            >
+              {isLoading ? (
+                <span className="flex items-center justify-center">
+                  <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4"></circle>
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                  </svg>
+                  Connecting...
+                </span>
+              ) : (
+                "Connect Wallet"
+              )}
+            </Button>
+          ) : (
+            <div className="p-4 rounded-lg bg-gray-50 space-y-2">
+              <p className="text-sm text-gray-500 font-light">Connected Wallet</p>
+              <p className="font-mono text-sm break-all">{walletAddress}</p>
+              <p className="text-sm text-gray-500 animate-pulse font-light">
+                Redirecting...
+              </p>
+            </div>
+          )}
+
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t border-gray-200" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-white px-2 text-gray-400 font-light tracking-wider">
+                Secure Connection
+              </span>
+            </div>
+          </div>
+
+          <p className="text-xs text-center text-gray-400 font-light">
+            By connecting, you agree to our Terms and Privacy Policy
+          </p>
+        </CardContent>
+      </Card>
     </div>
   );
-}
+};
+
+export default Login;

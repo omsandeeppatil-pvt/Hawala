@@ -1,8 +1,8 @@
-// /app/layout.tsx
+import './globals.css';
 
 export const metadata = {
-  title: "Crypto App",
-  description: "A Next.js app for sending and receiving cryptocurrency.",
+  title: 'Hawala',
+  description: 'A Next.js app for sending and receiving cryptocurrency.',
 };
 
 export default function RootLayout({
@@ -12,13 +12,23 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body>
-        <header style={{ padding: "1rem", background: "#f3f3f3", textAlign: "center" }}>
-          <h1>Crypto App</h1>
+      <body className="bg-background text-foreground">
+        {/* Header with Logo */}
+        <header className="flex items-center justify-center p-4 bg-gray-100 shadow-sm">
+          <img
+            src="/logo.png" // Ensure you place your logo image in the public folder
+            alt="Hawala Logo"
+            className="w-6 h-6 mr-2"
+          />
+          <h1 className="text-xl font-bold text-gray-800">Hawala</h1>
         </header>
-        <main style={{ padding: "2rem" }}>{children}</main>
-        <footer style={{ marginTop: "2rem", textAlign: "center" }}>
-          <p>&copy; {new Date().getFullYear()} Crypto App. All rights reserved.</p>
+
+        {/* Main Content */}
+        <main className="p-4">{children}</main>
+
+        {/* Footer */}
+        <footer className="text-center text-sm text-gray-500 mt-4">
+          <p>&copy; {new Date().getFullYear()} Hawala</p>
         </footer>
       </body>
     </html>
