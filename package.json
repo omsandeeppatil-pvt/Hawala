@@ -29,9 +29,7 @@
     "typescript": "^5.1.0"
   },
   "eslintConfig": {
-    "extends": ["next", "next/core-web-vitals"],
-    "rules": {
-      // Add your custom rules or override existing ones here
-    }
+    "extends": ["next", "next/core-web-vitals"]
+    
   }
 }
