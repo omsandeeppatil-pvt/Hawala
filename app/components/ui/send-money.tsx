@@ -4,7 +4,8 @@
 import React, { useState } from 'react';
 import { Send, User, Search, ArrowRight, ChevronLeft, X } from 'lucide-react';
 import { Card, CardHeader, CardContent, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import Button from "@/components/ui/button";
+
 
 const SendMoney = ({ onClose }: { onClose: () => void }) => {
   const [step, setStep] = useState(1);
