@@ -16,7 +16,7 @@ import {
   CardContent,
   CardTitle,
 } from "@/components/ui/card";
-import Button  from "@/components/ui/button";
+import Button from "@/components/ui/button"; // Ensure this path and component are correct
 
 interface Contact {
   id: number;
@@ -104,7 +104,9 @@ const RequestMoney: React.FC<RequestMoneyProps> = ({ onClose }) => {
               </div>
               <div>
                 <p className="font-medium text-sm">{contact.name}</p>
-                <p className="text-xs text-gray-500">Last: Rs {contact.lastAmount}</p>
+                <p className="text-xs text-gray-500">
+                  Last: Rs {contact.lastAmount}
+                </p>
               </div>
             </div>
             <ArrowRight className="w-4 h-4 text-gray-400" />
