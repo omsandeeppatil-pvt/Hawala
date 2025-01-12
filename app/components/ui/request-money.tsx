@@ -16,7 +16,8 @@ import {
   CardContent,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button"; // Use named import if that's the expected export type
+import Button from '@/components/ui/button';
+
 
 interface Contact {
   id: number;
