@@ -18,7 +18,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import Button  from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import RequestMoney from "@/components/ui/request-money"; // Correct the import
 import SendMoney from "@/components/ui/send-money";   // Correct the import
