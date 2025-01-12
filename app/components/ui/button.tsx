@@ -1,6 +1,7 @@
 import React from "react";
 import { cn } from "@/utils/cn"; // Utility for conditional class merging
 
+// Define allowed types for variant, size, and loading
 export type ButtonProps = React.ButtonHTMLAttributes<HTMLButtonElement> & {
   variant?: "primary" | "secondary" | "ghost";
   size?: "small" | "medium" | "large";
@@ -30,11 +31,12 @@ const Button: React.FC<ButtonProps> = ({
   children,
   ...props
 }) => {
+  // Merge the button styles dynamically with cn() function
   const buttonClasses = cn(
     BUTTON_BASE_STYLES,
-    VARIANT_STYLES[variant],
-    SIZE_STYLES[size],
-    className
+    VARIANT_STYLES[variant], // Apply variant styles
+    SIZE_STYLES[size],       // Apply size styles
+    className                // Allow for additional custom classes
   );
 
   return (
