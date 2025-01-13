@@ -1,22 +1,39 @@
-// Declare window.ethereum to prevent TypeScript errors
-interface Window {
-  ethereum: any; // Use 'any' for simplicity, or refine the type if needed
+// Extend the global `window` interface to include `ethereum`
+declare global {
+  interface Ethereum {
+    isMetaMask?: boolean;
+    request: (args: { method: string; params?: unknown[] }) => Promise<unknown>;
+  }
+
+  interface Window {
+    ethereum?: Ethereum;
+  }
 }
 
-// Add module declarations for components
+// Ensure the file is treated as a module
+export {};
+
+// Module declarations for UI components
 declare module "@/components/ui/card" {
-  export const Card: React.FC<React.ComponentProps<'div'>>; // Adjust the type based on your actual component
-  export const CardContent: React.FC<React.ComponentProps<'div'>>;
-  export const CardDescription: React.FC<React.ComponentProps<'div'>>;
-  export const CardHeader: React.FC<React.ComponentProps<'div'>>;
-  export const CardTitle: React.FC<React.ComponentProps<'h2'>>; // or use a more specific type
+  export const Card: React.FC<React.HTMLAttributes<HTMLDivElement>>;
+  export const CardContent: React.FC<React.HTMLAttributes<HTMLDivElement>>;
+  export const CardDescription: React.FC<React.HTMLAttributes<HTMLDivElement>>;
+  export const CardHeader: React.FC<React.HTMLAttributes<HTMLDivElement>>;
+  export const CardTitle: React.FC<React.HTMLAttributes<HTMLHeadingElement>>;
 }
 
+// Module declarations for UI components
 declare module "@/components/ui/button" {
-  export const Button: React.FC<React.ComponentProps<'button'>>; // Adjust based on the component's props
+  // Use a unique alias to avoid conflicts
+  export const UIButton: React.ForwardRefExoticComponent<
+    React.ButtonHTMLAttributes<HTMLButtonElement> &
+    { variant?: string; size?: string; asChild?: boolean } &
+    React.RefAttributes<HTMLButtonElement>
+  >;
 }
+
 
 declare module "@/components/ui/alert" {
-  export const Alert: React.FC<React.ComponentProps<'div'>>;
-  export const AlertDescription: React.FC<React.ComponentProps<'div'>>;
+  export const Alert: React.FC<React.HTMLAttributes<HTMLDivElement>>;
+  export const AlertDescription: React.FC<React.HTMLAttributes<HTMLDivElement>>;
 }

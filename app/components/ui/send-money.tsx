@@ -1,11 +1,9 @@
-// /components/ui/send-money.tsx
 "use client";
 
 import React, { useState } from 'react';
 import { Send, User, Search, ArrowRight, ChevronLeft, X } from 'lucide-react';
 import { Card, CardHeader, CardContent, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';  
-
 
 const SendMoney = ({ onClose }: { onClose: () => void }) => {
   const [step, setStep] = useState(1);
@@ -106,6 +104,8 @@ const SendMoney = ({ onClose }: { onClose: () => void }) => {
         className="w-full gap-2" 
         onClick={handleSend}
         disabled={!amount || loading}
+        variant="default" 
+        size="md"
       >
         {loading ? (
           <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />

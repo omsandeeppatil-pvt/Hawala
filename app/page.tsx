@@ -2,22 +2,15 @@
 
 import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import Button from "@/components/ui/button";
+import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-
-// Proper type declaration for ethereum
-declare global {
-  interface Window {
-    ethereum: any; // Use `any` to resolve type conflict
-  }
-}
 
 const Login: React.FC = () => {
   const [walletAddress, setWalletAddress] = useState<string>("");
   const [error, setError] = useState<string>("");
   const [isLoading, setIsLoading] = useState<boolean>(false);
 
-  // Check if MetaMask is available
+  // Check MetaMask availability
   const checkMetaMaskAvailability = (): boolean => {
     if (!window?.ethereum?.isMetaMask) {
       setError("MetaMask is not installed. Please install it from metamask.io");
@@ -26,25 +19,22 @@ const Login: React.FC = () => {
     return true;
   };
 
-  // Connect MetaMask Wallet
+  // Connect to MetaMask wallet
   const connectWallet = async (): Promise<void> => {
     try {
       setIsLoading(true);
       setError("");
 
-      if (!checkMetaMaskAvailability()) {
-        return;
-      }
+      if (!checkMetaMaskAvailability()) return;
 
-      // Request account access
-      const accounts = await window.ethereum.request({
+      // Ensure accounts is typed as string[]
+      const accounts = await window.ethereum?.request({
         method: "eth_requestAccounts",
-      });
+      }) as string[]; // Type assertion to string[]
 
-      if (accounts[0]) {
+      if (accounts && accounts[0]) {
         setWalletAddress(accounts[0]);
-        // Navigate to home (implement your navigation logic here)
-        window.location.href = "/home";
+        window.location.href = "/home"; // Navigate to home page
       }
     } catch (err) {
       console.error("Connection Error:", err);
