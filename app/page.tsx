@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Alert, AlertDescription } from "@/components/ui/alert";  // Ensure proper import
+import { AlertComponent, AlertTitle, AlertDescription } from "@/components/ui/alert";
 
 const Login: React.FC = () => {
   const [walletAddress, setWalletAddress] = useState<string>("");
