@@ -35,7 +35,7 @@ const MinimalNFTMarketplace = () => {
       id: 1,
       name: "Digital Dream #1",
       price: 0.05,
-      image: "https://mir-s3-cdn-cf.behance.net/project_modules/1400/106f05162712987.63da29d7cf415.jpg",
+      image: "https://i.pinimg.com/1200x/ef/86/75/ef8675e64dd30a32a9e772621125b41d.jpg",
     },
     {
       id: 2,
