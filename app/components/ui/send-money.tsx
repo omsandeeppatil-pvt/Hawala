@@ -1,4 +1,4 @@
-"use client";
+"use client"; 
 
 import React, { useState } from 'react';
 import { Send, User, Search, ArrowRight, ChevronLeft, X } from 'lucide-react';
@@ -105,7 +105,7 @@ const SendMoney = ({ onClose }: { onClose: () => void }) => {
         onClick={handleSend}
         disabled={!amount || loading}
         variant="default" 
-        size="md"
+        size="default"  
       >
         {loading ? (
           <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />
