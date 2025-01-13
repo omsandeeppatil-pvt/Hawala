@@ -3,7 +3,7 @@
 import React, { useState, useEffect } from "react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Alert, AlertDescription } from "@/components/ui/alert";  // Ensure proper import
 
 const Login: React.FC = () => {
   const [walletAddress, setWalletAddress] = useState<string>("");
@@ -27,7 +27,6 @@ const Login: React.FC = () => {
 
       if (!checkMetaMaskAvailability()) return;
 
-      // Ensure accounts is typed as string[]
       const accounts = await window.ethereum?.request({
         method: "eth_requestAccounts",
       }) as string[]; // Type assertion to string[]
