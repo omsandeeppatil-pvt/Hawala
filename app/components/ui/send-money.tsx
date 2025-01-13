@@ -1,28 +1,26 @@
-"use client"; 
+"use client";
 
-import React, { useState } from 'react';
-import { Send, User, Search, ArrowRight, ChevronLeft, X } from 'lucide-react';
-import { Card, CardHeader, CardContent, CardTitle } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';  
+import React, { useState } from "react";
+import { Send, User, Search, ArrowRight, ChevronLeft, X } from "lucide-react";
 
 const SendMoney = ({ onClose }: { onClose: () => void }) => {
   const [step, setStep] = useState(1);
   const [selectedContact, setSelectedContact] = useState<any>(null);
-  const [amount, setAmount] = useState('');
-  const [note, setNote] = useState('');
+  const [amount, setAmount] = useState("");
+  const [note, setNote] = useState("");
   const [loading, setLoading] = useState(false);
 
   // Sample contacts - in real app would come from props or API
   const contacts = [
-    { id: 1, name: 'Prakash Magesh', image: 'https://github.com/omsandippatil/Hawala/blob/main/img/avatar-3.png?raw=true', lastAmount: '2,500' },
-    { id: 2, name: 'Irfan Shaikh', image: 'https://github.com/omsandippatil/Hawala/blob/main/img/avatar-2.png?raw=true', lastAmount: '1,800' },
-    { id: 3, name: 'Soham PAtil', image: 'https://github.com/omsandippatil/Hawala/blob/main/img/avatar-1.png?raw=true', lastAmount: '3,200' },
+    { id: 1, name: "Prakash Magesh", image: "https://github.com/omsandippatil/Hawala/blob/main/img/avatar-3.png?raw=true", lastAmount: "2,500" },
+    { id: 2, name: "Irfan Shaikh", image: "https://github.com/omsandippatil/Hawala/blob/main/img/avatar-2.png?raw=true", lastAmount: "1,800" },
+    { id: 3, name: "Soham PAtil", image: "https://github.com/omsandippatil/Hawala/blob/main/img/avatar-1.png?raw=true", lastAmount: "3,200" },
   ];
 
   const handleSend = async () => {
     setLoading(true);
     // Simulate API call
-    await new Promise(resolve => setTimeout(resolve, 1000));
+    await new Promise((resolve) => setTimeout(resolve, 1000));
     setLoading(false);
     onClose();
   };
@@ -100,12 +98,10 @@ const SendMoney = ({ onClose }: { onClose: () => void }) => {
         />
       </div>
 
-      <Button 
-        className="w-full gap-2" 
+      <button
+        className="w-full gap-2 inline-flex items-center justify-center px-4 py-2 rounded-lg bg-primary text-primary-foreground hover:bg-primary/90 disabled:pointer-events-none disabled:opacity-50"
         onClick={handleSend}
         disabled={!amount || loading}
-        variant="default" 
-        size="default"  
       >
         {loading ? (
           <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />
@@ -113,43 +109,37 @@ const SendMoney = ({ onClose }: { onClose: () => void }) => {
           <Send className="w-4 h-4" />
         )}
         Send Money
-      </Button>
+      </button>
     </div>
   );
 
   return (
-    <Card className="max-w-md mx-auto">
-      <CardHeader>
+    <div className="max-w-md mx-auto bg-white rounded-lg shadow-lg overflow-hidden">
+      <div className="p-4 border-b">
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
             {step === 2 && (
-              <Button
-                variant="ghost"
-                size="icon"
+              <button
+                className="h-8 w-8 p-2 bg-transparent hover:bg-gray-100 rounded-full"
                 onClick={() => setStep(1)}
-                className="h-8 w-8"
               >
                 <ChevronLeft className="w-4 h-4" />
-              </Button>
+              </button>
             )}
-            <CardTitle>
-              {step === 1 ? 'Send Money' : 'Amount'}
-            </CardTitle>
+            <h2 className="text-xl font-medium">{step === 1 ? "Send Money" : "Amount"}</h2>
           </div>
-          <Button
-            variant="ghost"
-            size="icon"
+          <button
+            className="h-8 w-8 p-2 bg-transparent hover:bg-gray-100 rounded-full"
             onClick={onClose}
-            className="h-8 w-8"
           >
             <X className="w-4 h-4" />
-          </Button>
+          </button>
         </div>
-      </CardHeader>
-      <CardContent>
+      </div>
+      <div className="p-4">
         {step === 1 ? <ContactSelect /> : <AmountInput />}
-      </CardContent>
-    </Card>
+      </div>
+    </div>
   );
 };
 
