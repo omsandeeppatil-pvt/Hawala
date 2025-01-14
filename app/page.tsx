@@ -56,9 +56,9 @@ const Login: React.FC = () => {
         </div>
         <div className="p-4">
           {error && (
-            <Alert className="text-sm mb-4">
-              <AlertDescription>{error}</AlertDescription>
-            </Alert>
+            <Alerta className="text-sm mb-4">
+              <AlertDescriptiona>{error}</AlertDescriptiona>
+            </Alerta>
           )}
 
           {!walletAddress ? (
