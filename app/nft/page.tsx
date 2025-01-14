@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
 import { AlertCircle, CheckCircle2, Loader2 } from "lucide-react";
 
-// Define proper types for Ethereum and other interfaces
 declare global {
   interface Ethereum {
     request: (args: { method: string; params?: any[] }) => Promise<any>;
@@ -20,7 +19,7 @@ declare global {
 interface NFT {
   id: number;
   name: string;
-  price: number; // Price in ETH
+  price: number;
   image: string;
 }
 
@@ -61,7 +60,6 @@ const MinimalNFTMarketplace = () => {
   const [buyingId, setBuyingId] = useState<number | null>(null);
   const [account, setAccount] = useState<string | null>(null);
   const [notification, setNotification] = useState<Notification | null>(null);
-  const [selectedNFT, setSelectedNFT] = useState<NFT | null>(null);
 
   useEffect(() => {
     checkWalletConnection();
@@ -118,7 +116,7 @@ const MinimalNFTMarketplace = () => {
       const gasEstimate = BigInt(nft.price * 0.002 * 1e18).toString(16);
 
       const transactionParameters = {
-        to: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e", // Replace with a valid recipient address
+        to: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e",
         from: userAccount,
         value: "0x" + priceInWei,
         gas: "0x" + gasEstimate,
@@ -133,7 +131,6 @@ const MinimalNFTMarketplace = () => {
         type: "success",
         message: `Successfully purchased ${nft.name}! Transaction: ${txHash.slice(0, 6)}...${txHash.slice(-4)}`,
       });
-      setSelectedNFT(null);
     } catch (error) {
       console.error("Purchase Error:", error);
       setNotification({
@@ -166,12 +163,20 @@ const MinimalNFTMarketplace = () => {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {nfts.map((nft) => (
             <Card key={nft.id} className="overflow-hidden bg-white hover:shadow-lg transition-shadow">
-              <CardContent className="p-0">
-                <img src={nft.image} alt={nft.name} className="w-full h-auto object-cover" />
-                <div className="p-4">
-                  <h2 className="text-lg font-semibold">{nft.name}</h2>
+              <div className="relative h-96"> {/* Increased height for fuller image */}
+                <img 
+                  src={nft.image} 
+                  alt={nft.name} 
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                <div className="absolute inset-0 bg-gradient-to-b from-transparent to-black opacity-60" />
+                <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
+                  <h2 className="text-xl font-semibold">{nft.name}</h2>
                   <p className="text-lg font-medium">{nft.price} ETH</p>
-                  <Button className="w-full mt-4 bg-black hover:bg-gray-800" onClick={() => purchaseNFT(nft)}>
+                  <Button 
+                    className="w-full mt-4 bg-white text-black hover:bg-gray-200" 
+                    onClick={() => purchaseNFT(nft)}
+                  >
                     {loading && buyingId === nft.id ? (
                       <Loader2 className="animate-spin h-4 w-4" />
                     ) : (
@@ -179,7 +184,7 @@ const MinimalNFTMarketplace = () => {
                     )}
                   </Button>
                 </div>
-              </CardContent>
+              </div>
             </Card>
           ))}
         </div>

@@ -11,6 +11,8 @@ import {
   Plus,
   ChevronRight,
   TrendingUp,
+  Coins,
+  Image,
 } from "lucide-react";
 import {
   Card,
@@ -20,8 +22,8 @@ import {
 } from "@/components/ui/card";
 import { Button }  from "@/components/ui/button";
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import RequestMoney from "@/components/ui/request-money"; // Correct the import
-import SendMoney from "@/components/ui/send-money";   // Correct the import
+import RequestMoney from "@/components/ui/request-money";
+import SendMoney from "@/components/ui/send-money";
 
 // Stats Card Component
 const StatsCard = ({ amount, label, trend }: { amount: string; label: string; trend: number; }) => (
@@ -63,9 +65,9 @@ const QuickAction = ({ icon: Icon, label, onClick }: { icon: React.ComponentType
 // Main App Component
 const PaymentApp = () => {
   const [loading, setLoading] = useState(true);
-  const [stats, setStats] = useState<any[]>([]); // Using 'any' to address missing types
-  const [contacts, setContacts] = useState<any[]>([]); // Using 'any' to address missing types
-  const [activities, setActivities] = useState<any[]>([]); // Using 'any' to address missing types
+  const [stats, setStats] = useState<any[]>([]);
+  const [contacts, setContacts] = useState<any[]>([]);
+  const [activities, setActivities] = useState<any[]>([]);
   const [showSendMoney, setShowSendMoney] = useState(false);
   const [showRequestMoney, setShowRequestMoney] = useState(false);
 
@@ -96,6 +98,14 @@ const PaymentApp = () => {
     };
     fetchData();
   }, []);
+
+  const handleNFTClick = () => {
+    window.location.href = '/nft';
+  };
+
+  const handleBuyCryptoClick = () => {
+    window.location.href = '/buy-crypto';
+  };
 
   if (loading) {
     return (
@@ -147,6 +157,8 @@ const PaymentApp = () => {
               <QuickAction icon={Send} label="Send" onClick={() => setShowSendMoney(true)} />
               <QuickAction icon={Wallet} label="Request" onClick={() => setShowRequestMoney(true)} />
               <QuickAction icon={CreditCard} label="Cards" />
+              <QuickAction icon={Image} label="NFT" onClick={handleNFTClick} />
+              <QuickAction icon={Coins} label="Crypto" onClick={handleBuyCryptoClick} />
             </div>
           </div>
 
