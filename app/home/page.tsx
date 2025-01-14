@@ -20,17 +20,17 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { UIButton }  from "@/components/ui/button";
+import { UIButton } from "@/components/ui/button";
 import RequestMoney from "@/components/ui/request-money";
 import SendMoney from "@/components/ui/send-money";
 
 // Stats Card Component
-const StatsCard = ({ amount, label, trend }: { amount: string; label: string; trend: number; }) => (
+const StatsCard = ({ amount, label, trend }: { amount: string; label: string; trend: number }) => (
   <div className="bg-white rounded-xl p-4 shadow-sm border border-gray-100">
     <div className="flex justify-between items-start">
       <div>
         <p className="text-sm text-gray-500">{label}</p>
-        <h3 className="text-2xl font-bold mt-1">{amount}</h3>
+        <h3 className="text-xl sm:text-2xl font-bold mt-1">{amount}</h3>
       </div>
       <div className={`flex items-center ${trend > 0 ? "text-green-500" : "text-red-500"}`}>
         <TrendingUp className="w-4 h-4" />
@@ -41,7 +41,7 @@ const StatsCard = ({ amount, label, trend }: { amount: string; label: string; tr
 );
 
 // Search Bar Component
-const SearchBar = ({ onSearch }: { onSearch: (query: string) => void; }) => (
+const SearchBar = ({ onSearch }: { onSearch: (query: string) => void }) => (
   <div className="relative">
     <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400 w-4 h-4" />
     <input
@@ -54,8 +54,11 @@ const SearchBar = ({ onSearch }: { onSearch: (query: string) => void; }) => (
 );
 
 // Quick Action Button Component
-const QuickAction = ({ icon: Icon, label, onClick }: { icon: React.ComponentType<any>; label: string; onClick?: () => void; }) => (
-  <button className="flex flex-col items-center justify-center w-16 h-16 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors" onClick={onClick}>
+const QuickAction = ({ icon: Icon, label, onClick }: { icon: React.ComponentType<any>; label: string; onClick?: () => void }) => (
+  <button
+    className="flex flex-col items-center justify-center w-16 h-16 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors"
+    onClick={onClick}
+  >
     <Icon className="w-6 h-6 text-gray-600" />
     <span className="text-xs mt-1 text-gray-600">{label}</span>
   </button>
@@ -99,11 +102,11 @@ const PaymentApp = () => {
   }, []);
 
   const handleNFTClick = () => {
-    window.location.href = '/nft';
+    window.location.href = "/nft";
   };
 
   const handleBuyCryptoClick = () => {
-    window.location.href = '/buy-crypto';
+    window.location.href = "/buy-crypto";
   };
 
   if (loading) {
@@ -129,12 +132,12 @@ const PaymentApp = () => {
           </div>
         </div>
       ) : (
-        <div className="max-w-2xl mx-auto p-6 space-y-8">
+        <div className="max-w-2xl mx-auto p-4 sm:p-6 space-y-6">
           {/* Header Section */}
           <div className="flex justify-between items-center">
             <div>
-              <h1 className="text-2xl font-bold">Welcome back</h1>
-              <p className="text-gray-500">Your latest transactions</p>
+              <h1 className="text-xl sm:text-2xl font-bold">Welcome back</h1>
+              <p className="text-sm sm:text-base text-gray-500">Your latest transactions</p>
             </div>
             <UIButton variant="outline" className="gap-2">
               <Plus className="w-4 h-4" />
@@ -143,7 +146,7 @@ const PaymentApp = () => {
           </div>
 
           {/* Stats Grid */}
-          <div className="grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 gap-4">
             {stats.map((stat, i) => (
               <StatsCard key={i} amount={stat.amount} label={stat.label} trend={stat.trend} />
             ))}
@@ -152,7 +155,7 @@ const PaymentApp = () => {
           {/* Quick Actions */}
           <div>
             <h2 className="text-lg font-semibold mb-4">Quick Actions</h2>
-            <div className="flex space-x-4">
+            <div className="grid grid-cols-3 sm:flex sm:space-x-4 gap-4 sm:gap-0">
               <QuickAction icon={Send} label="Send" onClick={() => setShowSendMoney(true)} />
               <QuickAction icon={Wallet} label="Request" onClick={() => setShowRequestMoney(true)} />
               <QuickAction icon={CreditCard} label="Cards" />
@@ -176,13 +179,20 @@ const PaymentApp = () => {
               </div>
             </CardHeader>
             <CardContent>
-              <div className="flex space-x-6 overflow-x-auto pb-4">
+              <div className="flex space-x-4 overflow-x-auto pb-4">
                 {contacts.map((contact, i) => (
-                  <div key={i} className="flex flex-col items-center space-y-2 cursor-pointer group">
+                  <div
+                    key={i}
+                    className="flex flex-col items-center space-y-2 cursor-pointer group"
+                  >
                     <div className="relative">
-                      <div className="w-16 h-16 rounded-full overflow-hidden bg-gray-100 border-2 border-white group-hover:border-gray-200 transition-all shadow-sm">
+                      <div className="w-14 h-14 rounded-full overflow-hidden bg-gray-100 border-2 border-white group-hover:border-gray-200 transition-all shadow-sm">
                         {contact.image ? (
-                          <img src={contact.image} alt={contact.name} className="w-full h-full object-cover" />
+                          <img
+                            src={contact.image}
+                            alt={contact.name}
+                            className="w-full h-full object-cover"
+                          />
                         ) : (
                           <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-100">
                             <User className="w-8 h-8 text-gray-400" />
@@ -207,9 +217,12 @@ const PaymentApp = () => {
             <CardHeader>
               <CardTitle>Recent Activity</CardTitle>
             </CardHeader>
-            <CardContent className="space-y-1">
+            <CardContent className="space-y-2">
               {activities.map((activity, i) => (
-                <div key={i} className="flex items-center justify-between py-3 hover:bg-gray-50 rounded-lg px-2 cursor-pointer">
+                <div
+                  key={i}
+                  className="flex items-center justify-between py-3 hover:bg-gray-50 rounded-lg px-2 cursor-pointer"
+                >
                   <div className="flex items-center space-x-3">
                     <div className="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
                       <User className="w-5 h-5 text-gray-500" />
@@ -220,7 +233,11 @@ const PaymentApp = () => {
                     </div>
                   </div>
                   <div className="text-right">
-                    <p className={`font-medium ${activity.type === "received" ? "text-green-600" : "text-gray-900"}`}>
+                    <p
+                      className={`font-medium ${
+                        activity.type === "received" ? "text-green-600" : "text-gray-900"
+                      }`}
+                    >
                       {activity.type === "received" ? "+" : "-"}Rs {activity.amount}
                     </p>
                     <p className="text-xs text-gray-500">{activity.type}</p>
