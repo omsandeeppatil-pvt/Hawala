@@ -16,7 +16,7 @@ import {
   CardContent,
   CardTitle,
 } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
+import { UIButton } from "@/components/ui/button";
 
 interface Contact {
   id: number;
