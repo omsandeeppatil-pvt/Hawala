@@ -24,7 +24,7 @@ declare module "@/components/ui/card" {
 
 // Module declarations for the Button component
 declare module "@/components/ui/button" {
-  export const UIButton: React.ForwardRefExoticComponent<
+  export const Button: React.ForwardRefExoticComponent<
     React.ButtonHTMLAttributes<HTMLButtonElement> &
       {
         variant?: string;

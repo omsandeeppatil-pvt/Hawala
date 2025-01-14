@@ -20,7 +20,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { UIButton }  from "@/components/ui/button";
+import { Button }  from "@/components/ui/button";
 import { Alerta, AlertDescriptiona } from "@/components/ui/alert";
 import RequestMoney from "@/components/ui/request-money";
 import SendMoney from "@/components/ui/send-money";
