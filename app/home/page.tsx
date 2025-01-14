@@ -137,10 +137,10 @@ const PaymentApp = () => {
               <h1 className="text-2xl font-bold">Welcome back</h1>
               <p className="text-gray-500">Your latest transactions</p>
             </div>
-            <Button variant="outline" className="gap-2">
+            <UIButton variant="outline" className="gap-2">
               <Plus className="w-4 h-4" />
               Add Money
-            </Button>
+            </UIButtonButton>
           </div>
 
           {/* Stats Grid */}
@@ -167,10 +167,10 @@ const PaymentApp = () => {
             <CardHeader>
               <div className="flex justify-between items-center">
                 <CardTitle>Recent Contacts</CardTitle>
-                <Button variant="ghost" className="text-sm gap-2">
+                <UIButton variant="ghost" className="text-sm gap-2">
                   View All
                   <ChevronRight className="w-4 h-4" />
-                </Button>
+                </UIButton>
               </div>
               <div className="mt-4">
                 <SearchBar onSearch={(query) => console.log(query)} />

@@ -150,7 +150,7 @@ const CryptoTrading: React.FC = () => {
                         onChange={(e: React.ChangeEvent<HTMLInputElement>) => setAmount(e.target.value)}
                         onClick={(e: React.MouseEvent) => e.stopPropagation()}
                       />
-                      <Button 
+                      <UIButton 
                         className="bg-black hover:bg-gray-800 px-6"
                         onClick={(e: React.MouseEvent) => {
                           e.stopPropagation();
@@ -166,7 +166,7 @@ const CryptoTrading: React.FC = () => {
                         ) : (
                           'Buy'
                         )}
-                      </Button>
+                      </UIButton>
                     </div>
                     {amount && (
                       <p className="text-sm text-gray-500 text-right">

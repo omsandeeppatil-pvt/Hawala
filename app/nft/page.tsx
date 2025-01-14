@@ -155,9 +155,9 @@ const MinimalNFTMarketplace = () => {
 
         <div className="flex justify-between items-center mb-6">
           <h1 className="text-2xl md:text-3xl font-bold">NFT Collection</h1>
-          <Button onClick={connectWallet} disabled={!!account}>
+          <UIButton onClick={connectWallet} disabled={!!account}>
             {account ? `Connected: ${account.slice(0, 6)}...${account.slice(-4)}` : "Connect Wallet"}
-          </Button>
+          </UIButton>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -173,7 +173,7 @@ const MinimalNFTMarketplace = () => {
                 <div className="absolute bottom-0 left-0 right-0 p-4 text-white">
                   <h2 className="text-xl font-semibold">{nft.name}</h2>
                   <p className="text-lg font-medium">{nft.price} ETH</p>
-                  <Button 
+                  <UIButton 
                     className="w-full mt-4 bg-white text-black hover:bg-gray-200" 
                     onClick={() => purchaseNFT(nft)}
                   >
@@ -182,7 +182,7 @@ const MinimalNFTMarketplace = () => {
                     ) : (
                       "Buy Now"
                     )}
-                  </Button>
+                  </UIButton>
                 </div>
               </div>
             </Card>
