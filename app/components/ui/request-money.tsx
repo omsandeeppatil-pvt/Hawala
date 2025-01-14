@@ -164,7 +164,7 @@ const RequestMoney: React.FC<RequestMoneyProps> = ({ onClose }) => {
         />
       </div>
 
-      <Button
+      <UIButton
         className="w-full gap-2"
         onClick={handleRequest}
         disabled={!amount || loading}
@@ -175,7 +175,7 @@ const RequestMoney: React.FC<RequestMoneyProps> = ({ onClose }) => {
           <Wallet className="w-4 h-4" />
         )}
         Request Money
-      </Button>
+      </UIButton>
     </div>
   );
 
@@ -185,25 +185,25 @@ const RequestMoney: React.FC<RequestMoneyProps> = ({ onClose }) => {
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
             {step === 2 && (
-              <Button
+              <UIButton
                 variant="ghost"
                 size="icon"
                 onClick={() => setStep(1)}
                 className="h-8 w-8"
               >
                 <ChevronLeft className="w-4 h-4" />
-              </Button>
+              </UIButton>
             )}
             <CardTitle>{step === 1 ? "Request Money" : "Amount & Details"}</CardTitle>
           </div>
-          <Button
+          <UIButton
             variant="ghost"
             size="icon"
             onClick={onClose}
             className="h-8 w-8"
           >
             <X className="w-4 h-4" />
-          </Button>
+          </UIButton>
         </div>
       </CardHeader>
       <CardContent>{step === 1 ? <ContactSelect /> : <RequestDetails />}</CardContent>
