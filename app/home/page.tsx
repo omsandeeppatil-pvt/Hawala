@@ -140,7 +140,7 @@ const PaymentApp = () => {
             <UIButton variant="outline" className="gap-2">
               <Plus className="w-4 h-4" />
               Add Money
-            </UIButtonButton>
+            </UIButton>
           </div>
 
           {/* Stats Grid */}
