@@ -147,10 +147,10 @@ const MinimalNFTMarketplace = () => {
     <div className="min-h-screen bg-gray-50 p-4 md:p-6">
       <div className="max-w-4xl mx-auto">
         {notification && (
-          <Alert className={`mb-4 ${notification.type === "error" ? "bg-red-50 text-red-900" : "bg-green-50 text-green-900"}`}>
+          <Alerta className={`mb-4 ${notification.type === "error" ? "bg-red-50 text-red-900" : "bg-green-50 text-green-900"}`}>
             {notification.type === "error" ? <AlertCircle className="h-4 w-4" /> : <CheckCircle2 className="h-4 w-4" />}
-            <AlertDescription>{notification.message}</AlertDescription>
-          </Alert>
+            <AlertDescriptiona>{notification.message}</AlertDescriptiona>
+          </Alerta>
         )}
 
         <div className="flex justify-between items-center mb-6">
