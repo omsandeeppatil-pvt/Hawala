@@ -25,13 +25,13 @@ declare module "@/components/ui/card" {
 // Module declarations for the Button component
 declare module "@/components/ui/button" {
   export const Button: React.ForwardRefExoticComponent<
-    React.ButtonHTMLAttributes<HTMLButtonElement> & 
-    {
-      variant?: string; 
-      size?: string; 
-      asChild?: boolean;
-    } & 
-    React.RefAttributes<HTMLButtonElement>
+    React.ButtonHTMLAttributes<HTMLButtonElement> &
+      {
+        variant?: string;
+        size?: string;
+        asChild?: boolean;
+      } &
+      React.RefAttributes<HTMLButtonElement>
   >;
 }
 

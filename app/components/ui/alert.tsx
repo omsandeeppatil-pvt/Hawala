@@ -1,4 +1,3 @@
-// alert.tsx
 import * as React from "react";
 import { cva, type VariantProps } from "class-variance-authority";
 
@@ -18,7 +17,7 @@ const alertVariants = cva(
   }
 );
 
-const Alert = React.forwardRef<
+const AlertComponent = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & VariantProps<typeof alertVariants>
 >(({ className, variant, ...props }, ref) => (
@@ -29,9 +28,9 @@ const Alert = React.forwardRef<
     {...props}
   />
 ));
-Alert.displayName = "Alert";
+AlertComponent.displayName = "AlertComponent";
 
-const AlertTitle = React.forwardRef<
+const AlertTitleComponent = React.forwardRef<
   HTMLHeadingElement,
   React.HTMLAttributes<HTMLHeadingElement>
 >(({ className, ...props }, ref) => (
@@ -41,9 +40,9 @@ const AlertTitle = React.forwardRef<
     {...props}
   />
 ));
-AlertTitle.displayName = "AlertTitle";
+AlertTitleComponent.displayName = "AlertTitleComponent";
 
-const AlertDescription = React.forwardRef<
+const AlertDescriptionComponent = React.forwardRef<
   HTMLParagraphElement,
   React.HTMLAttributes<HTMLParagraphElement>
 >(({ className, ...props }, ref) => (
@@ -53,6 +52,10 @@ const AlertDescription = React.forwardRef<
     {...props}
   />
 ));
-AlertDescription.displayName = "AlertDescription";
+AlertDescriptionComponent.displayName = "AlertDescriptionComponent";
 
-export { Alert, AlertTitle, AlertDescription };
+export {
+  AlertComponent as Alerta,
+  AlertTitleComponent as AlertTitlea,
+  AlertDescriptionComponent as AlertDescriptiona,
+};
