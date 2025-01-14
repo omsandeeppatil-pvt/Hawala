@@ -13,25 +13,14 @@ declare global {
 // Ensure the file is treated as a module
 export {};
 
-// Module declarations for the Card components
-declare module "@/components/ui/card" {
-  export const Card: React.FC<React.HTMLAttributes<HTMLDivElement>>;
-  export const CardContent: React.FC<React.HTMLAttributes<HTMLDivElement>>;
-  export const CardDescription: React.FC<React.HTMLAttributes<HTMLDivElement>>;
-  export const CardHeader: React.FC<React.HTMLAttributes<HTMLDivElement>>;
-  export const CardTitle: React.FC<React.HTMLAttributes<HTMLHeadingElement>>;
-}
-
 // Module declarations for the Button component
 declare module "@/components/ui/button" {
   export const Button: React.ForwardRefExoticComponent<
-    React.ButtonHTMLAttributes<HTMLButtonElement> &
-      {
-        variant?: string;
-        size?: string;
-        asChild?: boolean;
-      } &
-      React.RefAttributes<HTMLButtonElement>
+    React.ButtonHTMLAttributes<HTMLButtonElement> & {
+      variant?: string;
+      size?: string;
+      asChild?: boolean;
+    } & React.RefAttributes<HTMLButtonElement>
   >;
 }
 
