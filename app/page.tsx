@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Alert, AlertDescription } from "@/components/ui/alert";
+import { Alerta, AlertDescriptiona } from "@/components/ui/alert";
 
 const Login: React.FC = () => {
   const [walletAddress, setWalletAddress] = useState<string>("");
