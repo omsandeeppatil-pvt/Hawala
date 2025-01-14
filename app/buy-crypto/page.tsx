@@ -2,7 +2,7 @@
 
 import React, { useState } from 'react';
 import { Card, CardContent } from '@/components/ui/card';
-import { Button } from '@/components/ui/button';
+import { UIButton } from '@/components/ui/button';
 import { Loader2, TrendingUp, ChevronDown, ChevronUp } from 'lucide-react';
 
 // Define types
