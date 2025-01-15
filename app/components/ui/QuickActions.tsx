@@ -22,9 +22,11 @@ const QuickAction = ({
 const QuickActions = ({
   onSendClick,
   onRequestClick,
+  onBuyCardClick,
 }: {
   onSendClick: () => void;
   onRequestClick: () => void;
+  onBuyCardClick: () => void;
 }) => {
   const handleNFTClick = () => {
     window.location.href = "/nft";
@@ -40,7 +42,7 @@ const QuickActions = ({
       <div className="flex space-x-4">
         <QuickAction icon={Send} label="Send" onClick={onSendClick} />
         <QuickAction icon={Wallet} label="Request" onClick={onRequestClick} />
-        <QuickAction icon={CreditCard} label="Cards" />
+        <QuickAction icon={CreditCard} label="Cards" onClick={onBuyCardClick} />
         <QuickAction icon={Image} label="NFT" onClick={handleNFTClick} />
         <QuickAction icon={Coins} label="Crypto" onClick={handleBuyCryptoClick} />
       </div>

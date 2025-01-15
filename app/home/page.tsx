@@ -1,22 +1,23 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Loader2, Plus } from "lucide-react";
-import { UIButton } from "@/components/ui/button";
+import { Loader2 } from "lucide-react";
 import StatsGrid from "@/components/ui/StatsGrid";
 import QuickActions from "@/components/ui/QuickActions";
 import RecentContacts from "@/components/ui/RecentContacts";
 import RecentActivity from "@/components/ui/RecentActivity";
 import SendMoney from "@/components/ui/send-money";
 import RequestMoney from "@/components/ui/request-money";
+import BuyCard from "@/components/ui/buy-card";
 
 const PaymentApp = () => {
   const [loading, setLoading] = useState(true);
-  const [stats, setStats] = useState<any[]>([]);
-  const [contacts, setContacts] = useState<any[]>([]);
-  const [activities, setActivities] = useState<any[]>([]);
+  const [stats, setStats] = useState([]);
+  const [contacts, setContacts] = useState([]);
+  const [activities, setActivities] = useState([]);
   const [showSendMoney, setShowSendMoney] = useState(false);
   const [showRequestMoney, setShowRequestMoney] = useState(false);
+  const [showBuyCard, setShowBuyCard] = useState(false);
 
   // Fetch data from APIs
   const fetchStats = async () => {
@@ -48,54 +49,63 @@ const PaymentApp = () => {
 
   if (loading) {
     return (
-      <div className="h-screen flex items-center justify-center bg-white">
-        <Loader2 className="h-8 w-8 animate-spin text-gray-400" />
+      <div className="flex items-center justify-center h-screen">
+        <Loader2 className="w-8 h-8 animate-spin" />
       </div>
     );
   }
 
   return (
     <>
-      {showSendMoney ? (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-          <div className="w-full max-w-md">
-            <SendMoney onClose={() => setShowSendMoney(false)} />
-          </div>
-        </div>
-      ) : showRequestMoney ? (
-        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
-          <div className="w-full max-w-md">
-            <RequestMoney onClose={() => setShowRequestMoney(false)} />
-          </div>
-        </div>
-      ) : (
-        <div className="max-w-2xl mx-auto p-6 space-y-8">
+      {/* SendMoney overlay */}
+      {showSendMoney && (
+        <SendMoney onClose={() => setShowSendMoney(false)} />
+      )}
+
+      {/* RequestMoney overlay */}
+      {showRequestMoney && (
+        <RequestMoney onClose={() => setShowRequestMoney(false)} />
+      )}
+
+      {/* BuyCard overlay */}
+      {showBuyCard && (
+        <BuyCard onClose={() => setShowBuyCard(false)} />
+      )}
+
+      {/* Main Content */}
+      {!showSendMoney && !showRequestMoney && !showBuyCard && (
+        <div className="p-4 space-y-6 max-w-screen-lg mx-auto">
           {/* Header Section */}
-          <div className="flex justify-between items-center">
-            <div>
-              <h1 className="text-2xl font-bold">Welcome back</h1>
-              <p className="text-gray-500">Your latest transactions</p>
-            </div>
-            <UIButton variant="outline" className="gap-2">
-              <Plus className="w-4 h-4" />
-              Add Money
-            </UIButton>
+          <div className="text-center">
+            <h1 className="text-3xl font-bold">Welcome back</h1>
+            <p className="text-gray-500 text-sm">Your latest transactions</p>
           </div>
 
           {/* Stats Grid */}
           <StatsGrid stats={stats} />
 
           {/* Quick Actions */}
-          <QuickActions
-            onSendClick={() => setShowSendMoney(true)}
-            onRequestClick={() => setShowRequestMoney(true)}
-          />
+          <div className="bg-white shadow-md rounded-lg p-4">
+            <QuickActions
+              onSendClick={() => setShowSendMoney(true)}
+              onRequestClick={() => setShowRequestMoney(true)}
+              onBuyCardClick={() => setShowBuyCard(true)}
+            />
+          </div>
 
           {/* Recent Contacts */}
-          <RecentContacts contacts={contacts} />
+          <div className="bg-white shadow-md rounded-lg p-4">
+            <h2 className="text-lg font-semibold mb-4">Recent Contacts</h2>
+            <RecentContacts contacts={contacts} />
+          </div>
 
           {/* Recent Activity */}
-          <RecentActivity activities={activities} />
+          {/* Recent Activity */}
+<div className="bg-white shadow-md rounded-lg p-4">
+  <h2 className="text-lg font-semibold mb-4">Recent Activity</h2>
+  <RecentActivity />
+</div>
+
         </div>
       )}
     </>
