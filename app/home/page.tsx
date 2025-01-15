@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from "react";
-import { Loader2 } from "lucide-react";
+import { Loader2, ScanFace } from "lucide-react";
 import StatsGrid from "@/components/ui/StatsGrid";
 import QuickActions from "@/components/ui/QuickActions";
 import RecentContacts from "@/components/ui/RecentContacts";
@@ -9,6 +9,7 @@ import RecentActivity from "@/components/ui/RecentActivity";
 import SendMoney from "@/components/ui/send-money";
 import RequestMoney from "@/components/ui/request-money";
 import BuyCard from "@/components/ui/buy-card";
+import Scanner from "@/components/ui/scanner";
 
 const PaymentApp: React.FC = () => {
   const [loading, setLoading] = useState(true);
@@ -18,8 +19,12 @@ const PaymentApp: React.FC = () => {
   const [showSendMoney, setShowSendMoney] = useState(false);
   const [showRequestMoney, setShowRequestMoney] = useState(false);
   const [showBuyCard, setShowBuyCard] = useState(false);
+  const [showScanner, setShowScanner] = useState(false);
 
-  // Fetch data from APIs
+  const handleFaceScan = () => {
+    setShowScanner(true); // Open the Scanner component
+  };
+
   const fetchStats = async () => {
     try {
       const response = await fetch("/api/stats");
@@ -69,6 +74,20 @@ const PaymentApp: React.FC = () => {
 
   return (
     <>
+      {/* Face Scanner Overlay */}
+      {showScanner && <Scanner onClose={() => setShowScanner(false)} />}
+
+      {/* Face Scanner Button */}
+      <div className="absolute top-4 right-4">
+        <button
+          onClick={handleFaceScan}
+          className="p-2 rounded-full bg-gray-200 hover:bg-gray-300 transition"
+          aria-label="Face Scanner"
+        >
+          <ScanFace className="w-6 h-6 text-gray-700" />
+        </button>
+      </div>
+
       {/* SendMoney Overlay */}
       {showSendMoney && <SendMoney onClose={() => setShowSendMoney(false)} />}
 
@@ -79,7 +98,7 @@ const PaymentApp: React.FC = () => {
       {showBuyCard && <BuyCard onClose={() => setShowBuyCard(false)} />}
 
       {/* Main Content */}
-      {!showSendMoney && !showRequestMoney && !showBuyCard && (
+      {!showSendMoney && !showRequestMoney && !showBuyCard && !showScanner && (
         <div className="p-4 space-y-6 max-w-screen-lg mx-auto">
           {/* Header Section */}
           <div className="text-center">

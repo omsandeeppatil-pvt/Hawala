@@ -1,5 +1,3 @@
-"use client";
-
 import React, { useState } from "react";
 import {
   Wallet,
@@ -9,6 +7,7 @@ import {
   ChevronLeft,
   X,
   Clock,
+  Check,
 } from "lucide-react";
 import {
   Card,
@@ -36,27 +35,25 @@ const RequestMoney: React.FC<RequestMoneyProps> = ({ onClose }) => {
   const [dueDate, setDueDate] = useState("");
   const [note, setNote] = useState("");
   const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState(false);
 
   const contacts: Contact[] = [
     {
       id: 1,
       name: "Durva Dongre",
-      image:
-        "https://github.com/omsandippatil/Hawala/blob/main/img/avatar-5.png?raw=true",
+      image: "https://github.com/omsandippatil/Hawala/blob/main/img/avatar-5.png?raw=true",
       lastAmount: "2,500",
     },
     {
       id: 2,
       name: "Arjun Rane",
-      image:
-        "https://github.com/omsandippatil/Hawala/blob/main/img/avatar-4.png?raw=true",
+      image: "https://github.com/omsandippatil/Hawala/blob/main/img/avatar-4.png?raw=true",
       lastAmount: "1,800",
     },
     {
       id: 3,
       name: "Arya Patil",
-      image:
-        "https://github.com/omsandippatil/Hawala/blob/main/img/avatar-3.png?raw=true",
+      image: "https://github.com/omsandippatil/Hawala/blob/main/img/avatar-3.png?raw=true",
       lastAmount: "3,200",
     },
   ];
@@ -66,7 +63,11 @@ const RequestMoney: React.FC<RequestMoneyProps> = ({ onClose }) => {
     // Simulate API call
     await new Promise((resolve) => setTimeout(resolve, 1000));
     setLoading(false);
-    onClose();
+    setSuccess(true);
+    // Auto close after showing success state
+    setTimeout(() => {
+      onClose();
+    }, 2000);
   };
 
   const ContactSelect: React.FC = () => (
@@ -116,66 +117,82 @@ const RequestMoney: React.FC<RequestMoneyProps> = ({ onClose }) => {
 
   const RequestDetails: React.FC = () => (
     <div className="space-y-6">
-      <div className="text-center space-y-2">
-        <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mx-auto">
-          {selectedContact?.image ? (
-            <img
-              src={selectedContact.image}
-              alt={selectedContact.name}
-              className="w-full h-full object-cover rounded-full"
-            />
-          ) : (
-            <User className="w-6 h-6 text-gray-500" />
-          )}
-        </div>
-        <h3 className="font-medium">{selectedContact?.name}</h3>
-      </div>
-
-      <div className="space-y-4">
-        <div className="relative mt-2">
-          <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg font-medium">
-            Rs
+      {success ? (
+        <div className="text-center space-y-4 py-8">
+          <div className="w-16 h-16 rounded-full bg-green-100 flex items-center justify-center mx-auto">
+            <Check className="w-8 h-8 text-green-600" />
           </div>
-          <input
-            type="text"
-            value={amount}
-            onChange={(e) => setAmount(e.target.value)}
-            placeholder="0"
-            className="w-full pl-12 pr-4 py-3 text-2xl font-bold text-center border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200"
-          />
+          <div className="space-y-1">
+            <h3 className="font-medium text-lg">Request Sent!</h3>
+            <p className="text-sm text-gray-500">
+              Rs {amount} requested from {selectedContact?.name}
+            </p>
+          </div>
         </div>
+      ) : (
+        <>
+          <div className="text-center space-y-2">
+            <div className="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center mx-auto">
+              {selectedContact?.image ? (
+                <img
+                  src={selectedContact.image}
+                  alt={selectedContact.name}
+                  className="w-full h-full object-cover rounded-full"
+                />
+              ) : (
+                <User className="w-6 h-6 text-gray-500" />
+              )}
+            </div>
+            <h3 className="font-medium">{selectedContact?.name}</h3>
+          </div>
 
-        <div className="relative">
-          <Clock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
-          <input
-            type="date"
-            value={dueDate}
-            onChange={(e) => setDueDate(e.target.value)}
-            className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200"
-          />
-        </div>
+          <div className="space-y-4">
+            <div className="relative mt-2">
+              <div className="absolute left-4 top-1/2 transform -translate-y-1/2 text-gray-500 text-lg font-medium">
+                Rs
+              </div>
+              <input
+                type="text"
+                value={amount}
+                onChange={(e) => setAmount(e.target.value)}
+                placeholder="0"
+                className="w-full pl-12 pr-4 py-3 text-2xl font-bold text-center border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200"
+              />
+            </div>
 
-        <textarea
-          value={note}
-          onChange={(e) => setNote(e.target.value)}
-          placeholder="Add a note (e.g., For dinner last night)"
-          className="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200 text-sm"
-          rows={3}
-        />
-      </div>
+            <div className="relative">
+              <Clock className="absolute left-3 top-1/2 transform -translate-y-1/2 w-4 h-4 text-gray-400" />
+              <input
+                type="date"
+                value={dueDate}
+                onChange={(e) => setDueDate(e.target.value)}
+                className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200"
+              />
+            </div>
 
-      <UIButton
-        className="w-full gap-2"
-        onClick={handleRequest}
-        disabled={!amount || loading}
-      >
-        {loading ? (
-          <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />
-        ) : (
-          <Wallet className="w-4 h-4" />
-        )}
-        Request Money
-      </UIButton>
+            <textarea
+              value={note}
+              onChange={(e) => setNote(e.target.value)}
+              placeholder="Add a note (e.g., For dinner last night)"
+              className="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200 text-sm"
+              rows={3}
+            />
+          </div>
+
+          <UIButton
+            className="w-full gap-2"
+            onClick={handleRequest}
+            disabled={!amount || loading}
+          >
+            {loading ? (
+              <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />
+            ) : (
+              <Wallet className="w-4 h-4" />
+            )}
+            Request Money
+          </UIButton>
+        </>
+      )}
     </div>
   );
 
@@ -184,7 +201,7 @@ const RequestMoney: React.FC<RequestMoneyProps> = ({ onClose }) => {
       <CardHeader>
         <div className="flex items-center justify-between">
           <div className="flex items-center space-x-2">
-            {step === 2 && (
+            {step === 2 && !success && (
               <UIButton
                 variant="ghost"
                 size="icon"
@@ -194,7 +211,9 @@ const RequestMoney: React.FC<RequestMoneyProps> = ({ onClose }) => {
                 <ChevronLeft className="w-4 h-4" />
               </UIButton>
             )}
-            <CardTitle>{step === 1 ? "Request Money" : "Amount & Details"}</CardTitle>
+            <CardTitle>
+              {success ? "Success" : step === 1 ? "Request Money" : "Amount & Details"}
+            </CardTitle>
           </div>
           <UIButton
             variant="ghost"
