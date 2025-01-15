@@ -1,23 +1,15 @@
 "use client";
 
+import { MetaMaskInpageProvider } from "@metamask/providers";
 import React, { useState, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
-import { UIButton } from "@/components/ui/button";
-import { 
-  TrendingUp, 
-  TrendingDown, 
-  Search, 
-  Star, 
-  StarOff
-} from "lucide-react";
-import {
-  LineChart,
-  Line,
-  XAxis,
-  YAxis,
-  Tooltip,
-  ResponsiveContainer
-} from "recharts";
+import { LineChart, Line, ResponsiveContainer } from "recharts";
+import { ArrowUpRight, ArrowDownRight } from "lucide-react";
+
+interface PricePoint {
+  time: number;
+  price: number;
+}
 
 interface CryptoData {
   id: number;
@@ -25,12 +17,24 @@ interface CryptoData {
   symbol: string;
   price: number;
   change: number;
-  volume: number;
-  marketCap: number;
-  priceHistory: { time: string; price: number }[];
+  priceHistory: PricePoint[];
 }
 
-const CryptoTrading = () => {
+// Modify the window declaration to correctly match the MetaMaskInpageProvider
+declare global {
+  interface Window {
+    methereum?: MetaMaskInpageProvider;
+  }
+}
+
+const generateVolatileData = (basePrice: number): PricePoint[] => {
+  return Array.from({ length: 20 }, (_, i) => ({
+    time: i,
+    price: basePrice * (1 + (Math.random() * 0.4 - 0.2))
+  }));
+};
+
+const CompactCrypto = () => {
   const [cryptos, setCryptos] = useState<CryptoData[]>([
     {
       id: 1,
@@ -38,14 +42,7 @@ const CryptoTrading = () => {
       symbol: "BTC",
       price: 4380000,
       change: 2.4,
-      volume: 28000000000,
-      marketCap: 850000000000,
-      priceHistory: [
-        { time: "1d", price: 4300000 },
-        { time: "2d", price: 4320000 },
-        { time: "3d", price: 4350000 },
-        { time: "4d", price: 4380000 }
-      ],
+      priceHistory: generateVolatileData(4380000)
     },
     {
       id: 2,
@@ -53,303 +50,235 @@ const CryptoTrading = () => {
       symbol: "ETH",
       price: 230000,
       change: -1.8,
-      volume: 15000000000,
-      marketCap: 270000000000,
-      priceHistory: [
-        { time: "1d", price: 235000 },
-        { time: "2d", price: 232000 },
-        { time: "3d", price: 228000 },
-        { time: "4d", price: 230000 }
-      ],
+      priceHistory: generateVolatileData(230000)
+    },
+    {
+      id: 3,
+      name: "Solana",
+      symbol: "SOL",
+      price: 12000,
+      change: 3.2,
+      priceHistory: generateVolatileData(12000)
+    },
+    {
+      id: 4,
+      name: "Ripple",
+      symbol: "XRP",
+      price: 75,
+      change: 1.6,
+      priceHistory: generateVolatileData(75)
+    },
+    {
+      id: 5,
+      name: "Cardano",
+      symbol: "ADA",
+      price: 150,
+      change: 0.9,
+      priceHistory: generateVolatileData(150)
+    },
+    {
+      id: 7,
+      name: "Litecoin",
+      symbol: "LTC",
+      price: 11000,
+      change: 4.5,
+      priceHistory: generateVolatileData(11000)
+    },
+    {
+      id: 8,
+      name: "Chainlink",
+      symbol: "LINK",
+      price: 1200,
+      change: -2.2,
+      priceHistory: generateVolatileData(1200)
+    },
+    {
+      id: 9,
+      name: "Uniswap",
+      symbol: "UNI",
+      price: 3500,
+      change: 5.7,
+      priceHistory: generateVolatileData(3500)
+    },
+    {
+      id: 10,
+      name: "Dogecoin",
+      symbol: "DOGE",
+      price: 6.5,
+      change: 3.1,
+      priceHistory: generateVolatileData(6.5)
+    },
+    {
+      id: 11,
+      name: "Avalanche",
+      symbol: "AVAX",
+      price: 3500,
+      change: -0.7,
+      priceHistory: generateVolatileData(3500)
+    },
+    {
+      id: 12,
+      name: "Shiba Inu",
+      symbol: "SHIB",
+      price: 0.00005,
+      change: 7.3,
+      priceHistory: generateVolatileData(0.00005)
+    },
+    {
+      id: 13,
+      name: "Polygon",
+      symbol: "MATIC",
+      price: 250,
+      change: 0.4,
+      priceHistory: generateVolatileData(250)
     }
+    
   ]);
 
-  const [selectedCrypto, setSelectedCrypto] = useState<CryptoData | null>(null);
-  const [searchQuery, setSearchQuery] = useState("");
-  const [portfolio, setPortfolio] = useState<{ [key: string]: number }>({});
-  const [favorites, setFavorites] = useState<Set<number>>(new Set());
-  const [alerts, setAlerts] = useState<{ [key: string]: number }>({});
-  const [view, setView] = useState<"market" | "portfolio">("market");
-  const [tradeAmount, setTradeAmount] = useState("");
-  const [alertPrice, setAlertPrice] = useState("");
-
-  // Simulate price updates
   useEffect(() => {
     const interval = setInterval(() => {
-      setCryptos(prev => prev.map(crypto => ({
-        ...crypto,
-        price: crypto.price * (1 + (Math.random() * 0.002 - 0.001)),
-        change: crypto.change + (Math.random() * 0.2 - 0.1)
-      })));
-    }, 5000);
+      setCryptos(prev => prev.map(crypto => {
+        const volatility = Math.random() * 0.06 - 0.03;
+        const newPrice = crypto.price * (1 + volatility);
+        return {
+          ...crypto,
+          price: newPrice,
+          change: crypto.change + (Math.random() * 0.8 - 0.4),
+          priceHistory: [...crypto.priceHistory.slice(1), {
+            time: crypto.priceHistory[crypto.priceHistory.length - 1].time + 1,
+            price: newPrice
+          }]
+        };
+      }));
+    }, 2000);
 
     return () => clearInterval(interval);
   }, []);
 
-  // Check price alerts
-  useEffect(() => {
-    cryptos.forEach(crypto => {
-      const targetPrice = alerts[crypto.symbol];
-      if (targetPrice && Math.abs(crypto.price - targetPrice) / targetPrice < 0.01) {
-        alert(`${crypto.symbol} has reached your target price of ₹${targetPrice.toLocaleString()}`);
-        const newAlerts = { ...alerts };
-        delete newAlerts[crypto.symbol];
-        setAlerts(newAlerts);
-      }
-    });
-  }, [cryptos, alerts]);
-
-  const handleCryptoSelect = (crypto: CryptoData) => {
-    setSelectedCrypto(selectedCrypto?.id === crypto.id ? null : crypto);
-    setTradeAmount("");
-    setAlertPrice("");
-  };
-
-  const handleTrade = (type: "buy" | "sell") => {
-    if (!selectedCrypto || !tradeAmount) return;
-    const amount = parseFloat(tradeAmount);
-    
-    if (type === "buy") {
-      setPortfolio(prev => ({
-        ...prev,
-        [selectedCrypto.symbol]: (prev[selectedCrypto.symbol] || 0) + amount
-      }));
-    } else {
-      const currentAmount = portfolio[selectedCrypto.symbol] || 0;
-      if (amount > currentAmount) {
-        alert("Insufficient balance");
-        return;
-      }
-      
-      setPortfolio(prev => ({
-        ...prev,
-        [selectedCrypto.symbol]: currentAmount - amount
-      }));
+  const connectToMetaMask = async (crypto: CryptoData) => {
+    if (!window.ethereum) {
+      alert("MetaMask is not installed. Please install it to proceed.");
+      return;
     }
-    setTradeAmount("");
-  };
 
-  const handleSetAlert = () => {
-    if (!selectedCrypto || !alertPrice) return;
-    const price = parseFloat(alertPrice);
-    
-    setAlerts(prev => ({
-      ...prev,
-      [selectedCrypto.symbol]: price
-    }));
-    setAlertPrice("");
-  };
+    try {
+      await window.ethereum.request({ method: "eth_requestAccounts" });
+      const accounts = await window.ethereum.request({ method: "eth_accounts" });
 
-  const toggleFavorite = (e: React.MouseEvent, cryptoId: number) => {
-    e.stopPropagation();
-    setFavorites(prev => {
-      const next = new Set(prev);
-      if (next.has(cryptoId)) {
-        next.delete(cryptoId);
+      if (accounts.length > 0) {
+        alert(`You are about to buy ${crypto.name}. Transaction details will appear here.`);
+        const transactionParams = {
+          to: "0xYourContractAddressHere",
+          from: accounts[0],
+          value: (crypto.price * 1e9).toString(16),
+          gas: "21000"
+        };
+
+        await window.ethereum.request({
+          method: "eth_sendTransaction",
+          params: [transactionParams]
+        });
       } else {
-        next.add(cryptoId);
+        alert("No MetaMask accounts found.");
       }
-      return next;
-    });
+    } catch (error) {
+      console.error(error);
+      alert("An error occurred while connecting to MetaMask.");
+    }
   };
 
-  const totalValue = Object.entries(portfolio).reduce((acc, [symbol, amount]) => {
-    const crypto = cryptos.find(c => c.symbol === symbol);
-    return acc + (crypto?.price || 0) * amount;
-  }, 0);
-
-  const filteredCryptos = cryptos.filter(crypto =>
-    crypto.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-    crypto.symbol.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  const totalMarketValue = cryptos.reduce((acc, crypto) => acc + crypto.price, 0);
 
   return (
-    <div className="p-4 max-w-4xl mx-auto">
-      <div className="flex justify-between items-center mb-6">
-        <h1 className="text-2xl font-bold">Crypto Trading</h1>
-        <div className="flex gap-2">
-          <UIButton 
-            onClick={() => setView("market")}
-            className={view === "market" ? "bg-black" : "bg-gray-200"}
-          >
-            Market
-          </UIButton>
-          <UIButton 
-            onClick={() => setView("portfolio")}
-            className={view === "portfolio" ? "bg-black" : "bg-gray-200"}
-          >
-            Portfolio (₹{totalValue.toLocaleString()})
-          </UIButton>
+    <div className="min-h-screen bg-gray-50">
+      <div className="max-w-5xl mx-auto p-4">
+        {/* Header Section */}
+        <div className="mb-6 text-center">
+          <h1 className="text-2xl font-extrabold text-gray-900">Cryptocurrency Market</h1>
+          <p className="text-gray-500 mt-1 text-sm">Stay updated with real-time prices and market trends</p>
         </div>
-      </div>
 
-      {view === "market" && (
-        <>
-          <div className="relative mb-4">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" />
-            <input
-              type="text"
-              placeholder="Search..."
-              className="w-full pl-10 p-2 border rounded"
-              value={searchQuery}
-              onChange={e => setSearchQuery(e.target.value)}
-            />
+        {/* Market Overview */}
+        <div className="bg-white rounded-lg p-4 mb-6 shadow-sm">
+          <h2 className="text-lg font-semibold mb-3">Market Overview</h2>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+            <div className="text-center">
+              <p className="text-gray-500">Total Market Value</p>
+              <p className="text-xl font-bold">₹{totalMarketValue.toLocaleString()}</p>
+            </div>
+            <div className="text-center">
+              <p className="text-gray-500">Active Markets</p>
+              <p className="text-xl font-bold">{cryptos.length}</p>
+            </div>
+            <div className="text-center">
+              <p className="text-gray-500">Update Frequency</p>
+              <p className="text-xl font-bold">2s</p>
+            </div>
           </div>
+        </div>
 
-          <div className="space-y-3">
-            {filteredCryptos.map(crypto => (
-              <Card 
-                key={crypto.id} 
-                className="hover:shadow-md transition-shadow cursor-pointer"
-                onClick={() => handleCryptoSelect(crypto)}
-              >
-                <CardContent className="p-4">
-                  <div className="flex items-center justify-between">
-                    <div className="flex items-center gap-4">
-                      <div>
-                        <h3 className="font-bold">{crypto.name}</h3>
-                        <p className="text-sm text-gray-500">{crypto.symbol}</p>
+        {/* Live Prices */}
+        <div className="mb-6">
+          <h2 className="text-lg font-semibold mb-3">Live Prices</h2>
+          <div className="grid gap-3 md:grid-cols-2 lg:grid-cols-3">
+            {cryptos.map(crypto => (
+              <Card key={crypto.id} className="overflow-hidden hover:shadow-md transition-shadow">
+                <CardContent className="p-3">
+                  <div className="flex items-center gap-3">
+                    <div className="flex-1">
+                      <div className="flex items-baseline gap-1">
+                        <h3 className="text-base font-medium">{crypto.name}</h3>
+                        <span className="text-xs text-gray-500">{crypto.symbol}</span>
                       </div>
-                      {favorites.has(crypto.id) ? (
-                        <Star 
-                          className="text-yellow-500 cursor-pointer" 
-                          onClick={(e) => toggleFavorite(e, crypto.id)}
-                        />
-                      ) : (
-                        <StarOff 
-                          className="text-gray-400 cursor-pointer"
-                          onClick={(e) => toggleFavorite(e, crypto.id)}
-                        />
-                      )}
+                      <div className="flex items-center gap-1 mt-1">
+                        <span className="text-base font-semibold">
+                          ₹{crypto.price.toLocaleString()}
+                        </span>
+                        <div className="flex items-center">
+                          {crypto.change >= 0 ? (
+                            <ArrowUpRight className="w-4 h-4 text-green-500" />
+                          ) : (
+                            <ArrowDownRight className="w-4 h-4 text-red-500" />
+                          )}
+                          <span className={`text-xs ${crypto.change >= 0 ? "text-green-500" : "text-red-500"}`}>
+                            {Math.abs(crypto.change).toFixed(2)}%
+                          </span>
+                        </div>
+                      </div>
                     </div>
-                    <div className="text-right">
-                      <p className="font-bold">₹{crypto.price.toLocaleString()}</p>
-                      <p className={crypto.change >= 0 ? "text-green-500" : "text-red-500"}>
-                        {crypto.change >= 0 ? <TrendingUp className="inline mr-1" /> : <TrendingDown className="inline mr-1" />}
-                        {Math.abs(crypto.change).toFixed(2)}%
-                      </p>
+                    <div className="w-20 h-12">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <LineChart data={crypto.priceHistory}>
+                          <Line 
+                            type="monotone" 
+                            dataKey="price" 
+                            stroke={crypto.change >= 0 ? "#22c55e" : "#ef4444"}
+                            strokeWidth={1.5}
+                            dot={false}
+                          />
+                        </LineChart>
+                      </ResponsiveContainer>
                     </div>
                   </div>
-
-                  {selectedCrypto?.id === crypto.id && (
-                    <div className="mt-4">
-                      <div className="h-48 mb-4">
-                        <ResponsiveContainer width="100%" height="100%">
-                          <LineChart data={crypto.priceHistory}>
-                            <XAxis dataKey="time" />
-                            <YAxis />
-                            <Tooltip />
-                            <Line 
-                              type="monotone" 
-                              dataKey="price" 
-                              stroke="#000" 
-                              dot={false}
-                            />
-                          </LineChart>
-                        </ResponsiveContainer>
-                      </div>
-
-                      <div className="grid grid-cols-2 gap-4">
-                        <div>
-                          <p className="text-sm text-gray-500 mb-1">Volume (24h)</p>
-                          <p className="font-medium">₹{crypto.volume.toLocaleString()}</p>
-                        </div>
-                        <div>
-                          <p className="text-sm text-gray-500 mb-1">Market Cap</p>
-                          <p className="font-medium">₹{crypto.marketCap.toLocaleString()}</p>
-                        </div>
-                      </div>
-
-                      <div className="flex gap-2 mt-4">
-                        <input
-                          type="number"
-                          placeholder="Amount"
-                          className="flex-1 p-2 border rounded"
-                          value={tradeAmount}
-                          onChange={(e) => setTradeAmount(e.target.value)}
-                          onClick={(e) => e.stopPropagation()}
-                        />
-                        <UIButton 
-                          className="bg-green-600 hover:bg-green-700"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleTrade("buy");
-                          }}
-                        >
-                          Buy
-                        </UIButton>
-                        <UIButton 
-                          className="bg-red-600 hover:bg-red-700"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleTrade("sell");
-                          }}
-                        >
-                          Sell
-                        </UIButton>
-                      </div>
-
-                      <div className="flex gap-2 mt-2">
-                        <input
-                          type="number"
-                          placeholder="Alert price"
-                          className="flex-1 p-2 border rounded"
-                          value={alertPrice}
-                          onChange={(e) => setAlertPrice(e.target.value)}
-                          onClick={(e) => e.stopPropagation()}
-                        />
-                        <UIButton 
-                          className="bg-blue-600 hover:bg-blue-700"
-                          onClick={(e) => {
-                            e.stopPropagation();
-                            handleSetAlert();
-                          }}
-                        >
-                          Set Alert
-                        </UIButton>
-                      </div>
-                    </div>
-                  )}
+                  <button
+                    onClick={() => connectToMetaMask(crypto)}
+                    className="mt-3 w-full px-3 py-2 bg-black text-white text-sm rounded hover:bg-gray-800"
+                  >
+                    Buy {crypto.name}
+                  </button>
                 </CardContent>
               </Card>
             ))}
           </div>
-        </>
-      )}
-
-      {view === "portfolio" && (
-        <div className="space-y-4">
-          {Object.entries(portfolio).map(([symbol, amount]) => {
-            const crypto = cryptos.find(c => c.symbol === symbol);
-            if (!crypto) return null;
-            
-            return (
-              <Card key={symbol}>
-                <CardContent className="p-4">
-                  <div className="flex justify-between items-center">
-                    <div>
-                      <h3 className="font-bold">{crypto.name}</h3>
-                      <p className="text-sm text-gray-500">
-                        {amount.toFixed(4)} {symbol}
-                      </p>
-                    </div>
-                    <div className="text-right">
-                      <p className="font-bold">
-                        ₹{(crypto.price * amount).toLocaleString()}
-                      </p>
-                      <p className={crypto.change >= 0 ? "text-green-500" : "text-red-500"}>
-                        {crypto.change >= 0 ? "+" : ""}{crypto.change.toFixed(2)}%
-                      </p>
-                    </div>
-                  </div>
-                </CardContent>
-              </Card>
-            );
-          })}
         </div>
-      )}
+
+        {/* Footer */}
+        <div className="text-center text-xs text-gray-500">
+          <p>Data updates every 2 seconds. All prices are in Indian Rupees (₹).</p>
+        </div>
+      </div>
     </div>
   );
 };
 
-export default CryptoTrading;
+export default CompactCrypto;

@@ -1,16 +1,17 @@
-// Extend the global `window` interface to include `ethereum`
+import { MetaMaskInpageProvider } from "@metamask/providers";
+
 declare global {
-  interface Ethereum {
+  // Define the Ethereum interface based on MetaMask's provider type
+  interface Ethereum extends MetaMaskInpageProvider {
     isMetaMask?: boolean;
-    request: (args: { method: string; params?: any[] }) => Promise<any>;
   }
 
+  // Extend the Window interface to include the Ethereum property
   interface Window {
-    ethereum?: Ethereum;
+    ethereum?: Ethereum; // Unified type declaration for `ethereum`
   }
 }
 
-// Ensure the file is treated as a module
 export {};
 
 // Module declarations for the Button component
