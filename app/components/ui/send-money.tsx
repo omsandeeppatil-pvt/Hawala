@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Send, User, Search, ArrowRight, ChevronLeft, X, Wallet } from "lucide-react";
 import { sendTokens } from "@/utils/send-rupa";
-import { ethers } from "ethers";
- 
+import ethers from "ethers";
 
 interface Contact {
   id: number;
@@ -30,36 +29,17 @@ const SendMoney: React.FC<SendMoneyProps> = ({ onClose }) => {
 
   const quickAmounts = [500, 1000, 2000, 5000];
 
-  // Same contacts array as before...
   const contacts: Contact[] = [
-    { 
-      id: 1, 
-      name: "Prakash Magesh", 
-      image: "/api/placeholder/40/40", 
-      lastAmount: "2,500", 
-      address: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e"
-    },
-    { 
-      id: 2, 
-      name: "Irfan Shaikh", 
-      image: "/api/placeholder/40/40", 
-      lastAmount: "1,800", 
-      address: "0x123d35Cc6634C0532925a3b844Bc454e4438f123"
-    },
-    { 
-      id: 3, 
-      name: "Soham Patil", 
-      image: "/api/placeholder/40/40", 
-      lastAmount: "3,200", 
-      address: "0x456d35Cc6634C0532925a3b844Bc454e4438f456"
-    },
+    { id: 1, name: "Prakash Magesh", image: "/api/placeholder/40/40", lastAmount: "2,500", address: "0x742d35Cc6634C0532925a3b844Bc454e4438f44e" },
+    { id: 2, name: "Irfan Shaikh", image: "/api/placeholder/40/40", lastAmount: "1,800", address: "0x123d35Cc6634C0532925a3b844Bc454e4438f123" },
+    { id: 3, name: "Soham Patil", image: "/api/placeholder/40/40", lastAmount: "3,200", address: "0x456d35Cc6634C0532925a3b844Bc454e4438f456" },
   ];
 
-  // Same wallet connection functions as before...
   const checkWalletConnection = async () => {
     if (window.ethereum) {
       try {
-        const accounts = await window.ethereum.request({ method: "eth_accounts" });
+        // Type assertion added for 'accounts' to ensure it's an array of strings
+        const accounts = (await window.ethereum.request({ method: "eth_accounts" })) as string[];
         if (accounts.length > 0) {
           setWalletAddress(accounts[0]);
         }
@@ -81,9 +61,8 @@ const SendMoney: React.FC<SendMoneyProps> = ({ onClose }) => {
 
     setIsConnecting(true);
     try {
-      const accounts = await window.ethereum.request({
-        method: "eth_requestAccounts",
-      });
+      // Type assertion added for 'accounts' to ensure it's an array of strings
+      const accounts = (await window.ethereum.request({ method: "eth_requestAccounts" })) as string[];
       setWalletAddress(accounts[0]);
     } catch (error) {
       console.error("Error connecting wallet:", error);
@@ -136,7 +115,6 @@ const SendMoney: React.FC<SendMoneyProps> = ({ onClose }) => {
     }
   };
 
-  // Same component implementations as before...
   const ConnectWalletButton = () => (
     <button
       onClick={connectWallet}
@@ -232,109 +210,76 @@ const SendMoney: React.FC<SendMoneyProps> = ({ onClose }) => {
             />
           </div>
           <div className="flex flex-wrap gap-2 justify-center">
-            {quickAmounts.map((quickAmount) => (
+            {quickAmounts.map((amount) => (
               <button
-                key={quickAmount}
-                onClick={() => setAmount(quickAmount.toString())}
-                className="px-4 py-2 bg-gray-50 rounded-lg hover:bg-gray-100 text-sm font-medium"
+                key={amount}
+                onClick={() => setAmount(amount.toString())}
+                className="px-4 py-2 rounded-lg bg-gray-200 text-sm text-gray-700 hover:bg-gray-300"
               >
-                Rs {quickAmount.toLocaleString()}
+                Rs {amount}
               </button>
             ))}
           </div>
+        </div>
+        <div>
           <textarea
             value={note}
             onChange={(e) => setNote(e.target.value)}
-            placeholder="Add a note..."
-            className="w-full p-3 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200 text-sm"
-            rows={3}
+            placeholder="Add a note (optional)"
+            className="w-full py-3 px-4 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200"
           />
         </div>
+      </div>
+    );
+  };
+
+  const ConfirmPayment = () => {
+    return (
+      <div className="space-y-6">
+        <div className="flex items-center justify-between text-lg">
+          <p>Amount</p>
+          <p>Rs {amount}</p>
+        </div>
+        {note && (
+          <div className="flex items-center justify-between text-lg">
+            <p>Note</p>
+            <p>{note}</p>
+          </div>
+        )}
         <button
-          className="w-full gap-2 inline-flex items-center justify-center px-4 py-2 rounded-lg bg-black text-white hover:bg-gray-800 disabled:opacity-50 disabled:cursor-not-allowed"
           onClick={handleSend}
-          disabled={!amount || loading || !walletAddress}
+          disabled={loading}
+          className="w-full mt-4 gap-2 inline-flex items-center justify-center px-4 py-3 rounded-lg bg-blue-500 text-white hover:bg-blue-600 disabled:opacity-50"
         >
           {loading ? (
             <div className="animate-spin rounded-full h-4 w-4 border-2 border-white border-t-transparent" />
           ) : (
             <Send className="w-4 h-4" />
           )}
-          {walletAddress ? "Send Money" : "Connect Wallet to Send"}
+          Send Payment
         </button>
       </div>
     );
   };
 
-  const SuccessMessage = () => (
-    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-      <div className="bg-white p-8 rounded-2xl shadow-xl text-center space-y-4 relative max-w-sm w-full mx-4">
+  return (
+    <div className="w-full max-w-sm p-6 bg-white rounded-lg shadow-lg">
+      <div className="space-y-6">
+        {step === 1 && <ContactSelect />}
+        {step === 2 && <AmountInput />}
+        {step === 3 && <ConfirmPayment />}
+        {showSuccess && (
+          <div className="text-center mt-6 text-green-600 font-semibold">Payment Successful!</div>
+        )}
         {showConfetti && (
-          <div className="absolute inset-0 pointer-events-none overflow-hidden">
-            <div className="absolute top-0 left-1/4 animate-confetti-l">
-              <div className="w-3 h-3 bg-yellow-400 rotate-45" />
-            </div>
-            <div className="absolute top-0 left-1/2 animate-confetti-m">
-              <div className="w-3 h-3 bg-green-400 rotate-45" />
-            </div>
-            <div className="absolute top-0 right-1/4 animate-confetti-r">
-              <div className="w-3 h-3 bg-blue-400 rotate-45" />
-            </div>
+          <div className="absolute inset-0 flex items-center justify-center">
+            <div className="w-16 h-16 rounded-full bg-yellow-300">🎉</div>
           </div>
         )}
-        <div className="w-20 h-20 bg-green-50 rounded-full flex items-center justify-center mx-auto">
-          <div className="w-12 h-12 relative">
-            <svg 
-              className="w-full h-full text-green-500 animate-check-mark"
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-            >
-              <path 
-                strokeLinecap="round" 
-                strokeLinejoin="round" 
-                strokeWidth="3"
-                d="M5 13l4 4L19 7"
-              />
-            </svg>
-          </div>
-        </div>
-        <h3 className="text-2xl font-bold text-gray-900">Payment Successful!</h3>
-        <p className="text-gray-600">
-          You sent Rs {parseInt(amount).toLocaleString()} to {selectedContact?.name}
-        </p>
-        <div className="text-sm text-gray-500">Transaction completed successfully</div>
-      </div>
-    </div>
-  );
-
-  return (
-    <div className="max-w-md mx-auto bg-white rounded-xl shadow-lg overflow-hidden">
-      <div className="p-4 border-b border-gray-100">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            {step === 2 && (
-              <button
-                className="h-8 w-8 p-2 rounded-full hover:bg-gray-50"
-                onClick={() => setStep(1)}
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-            )}
-            <h2 className="text-xl font-medium">{step === 1 ? "Send Money" : "Amount"}</h2>
-          </div>
-          <button
-            className="h-8 w-8 p-2 rounded-full hover:bg-gray-50"
-            onClick={onClose}
-          >
-            <X className="w-4 h-4" />
-          </button>
+        <div className="absolute top-0 right-0 p-3 cursor-pointer" onClick={onClose}>
+          <X className="w-5 h-5" />
         </div>
       </div>
-      <div className="p-4">
-        {step === 1 ? <ContactSelect /> : <AmountInput />}
-      </div>
-      {showSuccess && <SuccessMessage />}
     </div>
   );
 };
