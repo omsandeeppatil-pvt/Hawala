@@ -16,10 +16,10 @@ const BuyCoins: React.FC<BuyCoinsProps> = ({ onClose }) => {
   const [name, setName] = useState("");
 
   const popularAmounts = [
-    { value: "5000", label: "₹5,000" },
-    { value: "10000", label: "₹10,000" },
-    { value: "25000", label: "₹25,000" },
-    { value: "50000", label: "₹50,000" }
+    { value: "5000", label: "5,000 Rs" },
+    { value: "10000", label: "10,000 Rs" },
+    { value: "25000", label: "25,000 Rs" },
+    { value: "50000", label: "50,000 Rs" }
   ];
 
   const formatCardNumber = (value: string) => {
@@ -60,19 +60,21 @@ const BuyCoins: React.FC<BuyCoinsProps> = ({ onClose }) => {
     <div className="space-y-6">
       <div className="text-center">
         <h3 className="text-lg font-semibold">Select Amount</h3>
-        <p className="text-sm text-gray-500">Choose how many coins you want to buy</p>
+        <p className="text-sm text-gray-500">Choose how many RUPA you want to buy</p>
       </div>
 
       <div className="space-y-4">
         <div className="relative mt-2">
-          <div className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-500 text-lg font-medium">₹</div>
           <input
             type="text"
             value={amount}
             onChange={(e) => setAmount(e.target.value.replace(/[^\d]/g, ""))}
             placeholder="0"
-            className="w-full pl-10 pr-4 py-3 text-2xl font-bold text-center border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200"
+            className="w-full px-4 py-3 text-2xl font-bold text-center border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-gray-200"
           />
+          <div className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-500 text-lg font-medium">
+            RUPA
+          </div>
         </div>
 
         <div className="grid grid-cols-2 gap-3">
@@ -83,7 +85,7 @@ const BuyCoins: React.FC<BuyCoinsProps> = ({ onClose }) => {
               className="p-4 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors"
             >
               <div className="font-semibold">{amt.label}</div>
-              <div className="text-sm text-gray-500">{parseInt(amt.value) / 100} coins</div>
+              <div className="text-sm text-gray-500">{amt.label} coins</div>
             </button>
           ))}
         </div>
@@ -106,7 +108,7 @@ const BuyCoins: React.FC<BuyCoinsProps> = ({ onClose }) => {
           <Lock className="w-4 h-4" />
           <span>Secure Payment</span>
         </div>
-        <p className="font-medium">Total Amount: ₹{parseInt(amount).toLocaleString()}</p>
+        <p className="font-medium">Total Amount: {parseInt(amount).toLocaleString()} RUPA</p>
       </div>
 
       <div className="space-y-4">
@@ -171,7 +173,7 @@ const BuyCoins: React.FC<BuyCoinsProps> = ({ onClose }) => {
           <div className="animate-spin rounded-full h-5 w-5 border-2 border-white border-t-transparent" />
         ) : (
           <>
-            <span>Pay ₹{parseInt(amount).toLocaleString()}</span>
+            <span>Pay {parseInt(amount).toLocaleString()} RUPA</span>
           </>
         )}
       </button>
@@ -186,34 +188,36 @@ const BuyCoins: React.FC<BuyCoinsProps> = ({ onClose }) => {
   );
 
   return (
-    <Card className="max-w-md mx-auto">
-      <div className="p-4 border-b border-gray-100">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            {step === 2 && (
-              <button
-                className="h-8 w-8 p-2 rounded-full hover:bg-gray-50"
-                onClick={() => setStep(1)}
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </button>
-            )}
-            <h2 className="text-xl font-medium">
-              {step === 1 ? "Buy Coins" : "Payment Details"}
-            </h2>
+    <div className="min-h-screen w-full flex items-center justify-center p-4">
+      <Card className="w-full max-w-md">
+        <div className="p-4 border-b border-gray-100">
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              {step === 2 && (
+                <button
+                  className="h-8 w-8 p-2 rounded-full hover:bg-gray-50"
+                  onClick={() => setStep(1)}
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </button>
+              )}
+              <h2 className="text-xl font-medium">
+                {step === 1 ? "Buy RUPA" : "Payment Details"}
+              </h2>
+            </div>
+            <button
+              className="h-8 w-8 p-2 rounded-full hover:bg-gray-50"
+              onClick={onClose}
+            >
+              <X className="w-4 h-4" />
+            </button>
           </div>
-          <button
-            className="h-8 w-8 p-2 rounded-full hover:bg-gray-50"
-            onClick={onClose}
-          >
-            <X className="w-4 h-4" />
-          </button>
         </div>
-      </div>
-      <CardContent className="p-4">
-        {step === 1 ? <AmountSelection /> : <PaymentDetails />}
-      </CardContent>
-    </Card>
+        <CardContent className="p-4">
+          {step === 1 ? <AmountSelection /> : <PaymentDetails />}
+        </CardContent>
+      </Card>
+    </div>
   );
 };
 

@@ -197,36 +197,38 @@ const RequestMoney: React.FC<RequestMoneyProps> = ({ onClose }) => {
   );
 
   return (
-    <Card className="max-w-md mx-auto">
-      <CardHeader>
-        <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-2">
-            {step === 2 && !success && (
-              <UIButton
-                variant="ghost"
-                size="icon"
-                onClick={() => setStep(1)}
-                className="h-8 w-8"
-              >
-                <ChevronLeft className="w-4 h-4" />
-              </UIButton>
-            )}
-            <CardTitle>
-              {success ? "Success" : step === 1 ? "Request Money" : "Amount & Details"}
-            </CardTitle>
+    <div className="min-h-screen w-full flex items-center justify-center p-4">
+      <Card className="w-full max-w-md">
+        <CardHeader>
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2">
+              {step === 2 && !success && (
+                <UIButton
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => setStep(1)}
+                  className="h-8 w-8"
+                >
+                  <ChevronLeft className="w-4 h-4" />
+                </UIButton>
+              )}
+              <CardTitle>
+                {success ? "Success" : step === 1 ? "Request Money" : "Amount & Details"}
+              </CardTitle>
+            </div>
+            <UIButton
+              variant="ghost"
+              size="icon"
+              onClick={onClose}
+              className="h-8 w-8"
+            >
+              <X className="w-4 h-4" />
+            </UIButton>
           </div>
-          <UIButton
-            variant="ghost"
-            size="icon"
-            onClick={onClose}
-            className="h-8 w-8"
-          >
-            <X className="w-4 h-4" />
-          </UIButton>
-        </div>
-      </CardHeader>
-      <CardContent>{step === 1 ? <ContactSelect /> : <RequestDetails />}</CardContent>
-    </Card>
+        </CardHeader>
+        <CardContent>{step === 1 ? <ContactSelect /> : <RequestDetails />}</CardContent>
+      </Card>
+    </div>
   );
 };
 
