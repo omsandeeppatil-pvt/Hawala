@@ -27,97 +27,97 @@ const NFTMarketplace = () => {
       id: 1,
       name: "Digital Dream #1",
       price: 0.05,
-      image: "img/nft/1"
+      image: "https://github.com/omsandippatil/Hawala/blob/main/img/nft/1.jpg?raw=true"
     },
     {
       id: 2,
       name: "Cosmic Art #4",
       price: 0.12,
-      image: "img/nft/2"
+      image: "https://github.com/omsandippatil/Hawala/blob/main/img/nft/2.jpg?raw=true"
     },
     {
       id: 3,
       name: "Future Vision #7",
       price: 0.08,
-      image: "/img/nft/3"
+      image: "https://github.com/omsandippatil/Hawala/blob/main/img/nft/3.jpg?raw=true"
     },
     {
       id: 4,
       name: "Digital Beast #2",
       price: 0.15,
-      image: "/api/placeholder/400/500"
+      image: "https://github.com/omsandippatil/Hawala/blob/main/img/nft/4.jpg?raw=true"
     },
     {
       id: 5,
       name: "Cyber Punk #3",
       price: 0.18,
-      image: "/api/placeholder/400/500"
+      image: "https://github.com/omsandippatil/Hawala/blob/main/img/nft/5.jpg?raw=true"
     },
     {
       id: 6,
       name: "Meta World #5",
       price: 0.22,
-      image: "/api/placeholder/400/500"
+      image: "https://github.com/omsandippatil/Hawala/blob/main/img/nft/6.jpg?raw=true"
     },
     {
       id: 7,
       name: "Digital Ocean #8",
       price: 0.14,
-      image: "/api/placeholder/400/500"
+      image: "https://github.com/omsandippatil/Hawala/blob/main/img/nft/7.jpg?raw=true"
     },
     {
       id: 8,
       name: "Neon Dreams #6",
       price: 0.20,
-      image: "/api/placeholder/400/500"
+      image: "https://github.com/omsandippatil/Hawala/blob/main/img/nft/8.jpg?raw=true"
     },
     {
       id: 9,
       name: "Digital Dream #1",
       price: 0.05,
-      image: "/api/placeholder/400/500"
+      image: "https://github.com/omsandippatil/Hawala/blob/main/img/nft/9.jpg?raw=true"
     },
     {
       id: 10,
       name: "Cosmic Art #4",
       price: 0.12,
-      image: "/api/placeholder/400/500"
+      image: "https://github.com/omsandippatil/Hawala/blob/main/img/nft/10.jpg?raw=true"
     },
     {
       id: 11,
       name: "Future Vision #7",
       price: 0.08,
-      image: "/api/placeholder/400/500"
+      image: "https://github.com/omsandippatil/Hawala/blob/main/img/nft/11.jpg?raw=true"
     },
     {
       id: 12,
       name: "Digital Beast #2",
       price: 0.15,
-      image: "/api/placeholder/400/500"
+      image: "https://github.com/omsandippatil/Hawala/blob/main/img/nft/12.jpg?raw=true"
     },
     {
       id: 13,
       name: "Cyber Punk #3",
       price: 0.18,
-      image: "/api/placeholder/400/500"
+      image: "https://github.com/omsandippatil/Hawala/blob/main/img/nft/13.jpg?raw=true"
     },
     {
       id: 14,
       name: "Meta World #5",
       price: 0.22,
-      image: "/api/placeholder/400/500"
+      image: "https://github.com/omsandippatil/Hawala/blob/main/img/nft/14.jpg?raw=true"
     },
     {
       id: 15,
       name: "Digital Ocean #8",
       price: 0.14,
-      image: "/api/placeholder/400/500"
+      image: "https://github.com/omsandippatil/Hawala/blob/main/img/nft/15.jpg?raw=true"
     },
     {
       id: 16,
       name: "Neon Dreams #6",
       price: 0.20,
-      image: "/api/placeholder/400/500"
+      image: "https://github.com/omsandippatil/Hawala/blob/main/img/nft/16.jpg?raw=true"
     }
   ]);
 
