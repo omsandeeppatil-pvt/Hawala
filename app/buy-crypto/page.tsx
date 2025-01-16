@@ -23,7 +23,7 @@ interface CryptoData {
 // Modify the window declaration to correctly match the MetaMaskInpageProvider
 declare global {
   interface Window {
-    methereum?: MetaMaskInpageProvider;
+    gethereum?: MetaMaskInpageProvider;
   }
 }
 
@@ -132,7 +132,6 @@ const CompactCrypto = () => {
       change: 0.4,
       priceHistory: generateVolatileData(250)
     }
-    
   ]);
 
   useEffect(() => {
@@ -163,12 +162,14 @@ const CompactCrypto = () => {
 
     try {
       await window.ethereum.request({ method: "eth_requestAccounts" });
-      const accounts = await window.ethereum.request({ method: "eth_accounts" });
 
-      if (accounts.length > 0) {
+      // Ensure accounts is not null or undefined
+      const accounts: string[] = await window.ethereum.request({ method: "eth_accounts" }) as string[];
+
+      if (accounts && accounts.length > 0) {
         alert(`You are about to buy ${crypto.name}. Transaction details will appear here.`);
         const transactionParams = {
-          to: "0xYourContractAddressHere",
+          to: "0xYourContractAddressHere", // Replace with actual contract address
           from: accounts[0],
           value: (crypto.price * 1e9).toString(16),
           gas: "21000"
