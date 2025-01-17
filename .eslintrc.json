@@ -3,7 +3,6 @@
     "next/core-web-vitals",
     "eslint:recommended"
   ],
-  "plugins": [],
   "rules": {
     "no-unused-vars": "warn",
     "no-console": "warn",
@@ -19,11 +18,13 @@
     "node": true,
     "es6": true
   },
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module",
     "ecmaFeatures": {
       "jsx": true
     }
-  }
+  },
+  "plugins": ["@typescript-eslint"]
 }
