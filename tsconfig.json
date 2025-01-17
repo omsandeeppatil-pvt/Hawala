@@ -1,11 +1,7 @@
 {
   "compilerOptions": {
     "target": "ES2017",
-    "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
-    ],
+    "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -17,18 +13,13 @@
     "isolatedModules": true,
     "jsx": "preserve",
     "incremental": true,
-    "plugins": [
-      {
-        "name": "next"
-      }
-    ],
+    "baseUrl": ".",  // Add this to define the root directory for path resolution
     "paths": {
-      "@/*": [
-        "./app/*"
-      ]
+      "@/*": ["app/*"],
+      "@components/*": ["app/components/*"]  // Add specific alias for components
     },
     "typeRoots": ["node_modules/@types", "node_modules"],
-    "types": ["ethers"]  // Add this line to include ethers types
+    "types": ["ethers"]  // Include ethers types for better compatibility
   },
   "include": [
     "next-env.d.ts",
@@ -38,7 +29,5 @@
     "tailwind.config.ts",
     "next.config.js"
   ],
-  "exclude": [
-    "node_modules"
-  ]
+  "exclude": ["node_modules"]
 }
