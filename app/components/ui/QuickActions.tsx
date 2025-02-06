@@ -1,5 +1,6 @@
 import React from "react";
 import { Send, Wallet, CreditCard, Coins, Image } from "lucide-react";
+import "@/styles/quick-actions.css";
 
 const QuickAction = ({
   icon: Icon,
@@ -11,11 +12,13 @@ const QuickAction = ({
   onClick?: () => void;
 }) => (
   <button
-    className="flex flex-col items-center justify-center w-16 h-16 rounded-lg bg-gray-50 hover:bg-gray-100 transition-colors"
+    className="cyberpunk-quick-action"
     onClick={onClick}
   >
-    <Icon className="w-6 h-6 text-gray-600" />
-    <span className="text-xs mt-1 text-gray-600">{label}</span>
+    <div className="cyberpunk-quick-action-icon-wrapper">
+      <Icon className="cyberpunk-quick-action-icon" />
+    </div>
+    <span className="cyberpunk-quick-action-label">{label}</span>
   </button>
 );
 
@@ -37,14 +40,14 @@ const QuickActions = ({
   };
 
   return (
-    <div>
-      <h2 className="text-lg font-semibold mb-4">Quick Actions</h2>
-      <div className="flex space-x-4">
-        <QuickAction icon={Send} label="Send" onClick={onSendClick} />
-        <QuickAction icon={Wallet} label="Request" onClick={onRequestClick} />
-        <QuickAction icon={CreditCard} label="Cards" onClick={onBuyCardClick} />
+    <div className="cyberpunk-quick-actions-container">
+      <h2 className="cyberpunk-quick-actions-title">QUANTUM ACTIONS</h2>
+      <div className="cyberpunk-quick-actions-grid">
+        <QuickAction icon={Send} label="SEND" onClick={onSendClick} />
+        <QuickAction icon={Wallet} label="REQUEST" onClick={onRequestClick} />
+        <QuickAction icon={CreditCard} label="CARDS" onClick={onBuyCardClick} />
         <QuickAction icon={Image} label="NFT" onClick={handleNFTClick} />
-        <QuickAction icon={Coins} label="Crypto" onClick={handleBuyCryptoClick} />
+        <QuickAction icon={Coins} label="CRYPTO" onClick={handleBuyCryptoClick} />
       </div>
     </div>
   );

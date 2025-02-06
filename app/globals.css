@@ -1,143 +1,238 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* Import Retro and Pixel Fonts */
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&family=Orbitron:wght@400;500;700&display=swap');
 
-@layer base {
-  /* Pixel Font */
-  @font-face {
-    font-family: 'PixelFont';
-    src: url('/path/to/pixel-font.woff2') format('woff2');
+/* CSS Reset and Normalize */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scroll-behavior: smooth;
+}
+
+/* Root Variables for Consistent Theming */
+:root {
+  /* Color Palette */
+  --color-bg-primary: #0a0a1a;
+  --color-bg-secondary: #111127;
+  --color-bg-tertiary: #1a1a3a;
+
+  /* Accent Colors */
+  --color-accent-purple: #8a4fff;
+  --color-accent-neon-purple: #bb86fc;
+  --color-accent-cyan: #03dac6;
+  --color-accent-pink: #cf6679;
+
+  /* Text Colors */
+  --color-text-primary: #e0e0ff;
+  --color-text-secondary: #bb86fc;
+  --color-text-disabled: #7a7a9a;
+
+  /* Border and Divider */
+  --color-border: #8a4fff;
+  --color-divider: rgba(138, 79, 255, 0.2);
+
+  /* Typography */
+  --font-primary: 'Orbitron', sans-serif;
+  --font-pixel: 'Press Start 2P', cursive;
+  --font-mono: 'VT323', monospace;
+
+  /* Spacing */
+  --spacing-xs: 0.25rem;
+  --spacing-sm: 0.5rem;
+  --spacing-md: 1rem;
+  --spacing-lg: 1.5rem;
+  --spacing-xl: 2rem;
+
+  /* Transitions */
+  --transition-fast: 0.2s ease;
+  --transition-normal: 0.3s ease;
+  --transition-slow: 0.5s ease;
+
+  /* Shadows */
+  --shadow-subtle: 0 2px 4px rgba(0, 0, 0, 0.1);
+  --shadow-medium: 0 4px 6px rgba(0, 0, 0, 0.2);
+  --shadow-strong: 0 6px 12px rgba(0, 0, 0, 0.3);
+
+  /* Border Radius */
+  --radius-sm: 4px;
+  --radius-md: 8px;
+  --radius-lg: 12px;
+  --radius-round: 50%;
+}
+
+/* Base HTML and Body Styles */
+html {
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  font-family: var(--font-primary);
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  min-height: 100vh;
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+/* Typography Defaults */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-pixel);
+  margin-bottom: var(--spacing-md);
+  color: var(--color-accent-neon-purple);
+  letter-spacing: 1px;
+}
+
+h1 { font-size: 2.5rem; }
+h2 { font-size: 2rem; }
+h3 { font-size: 1.75rem; }
+h4 { font-size: 1.5rem; }
+h5 { font-size: 1.25rem; }
+h6 { font-size: 1rem; }
+
+p {
+  margin-bottom: var(--spacing-md);
+}
+
+/* Link Styles */
+a {
+  color: var(--color-accent-cyan);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-accent-neon-purple);
+  text-decoration: underline;
+}
+
+/* Button Styles */
+button {
+  font-family: var(--font-primary);
+  background-color: transparent;
+  border: 2px solid var(--color-border);
+  color: var(--color-text-primary);
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: 
+    background-color var(--transition-fast),
+    transform var(--transition-fast);
+}
+
+button:hover {
+  background-color: rgba(138, 79, 255, 0.1);
+  transform: scale(1.05);
+}
+
+button:active {
+  transform: scale(0.95);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Form Elements */
+input, 
+select, 
+textarea {
+  width: 100%;
+  padding: var(--spacing-sm);
+  background-color: var(--color-bg-secondary);
+  border: 2px solid var(--color-border);
+  color: var(--color-text-primary);
+  border-radius: var(--radius-md);
+  transition: border-color var(--transition-fast);
+}
+
+input:focus,
+select:focus,
+textarea:focus {
+  outline: none;
+  border-color: var(--color-accent-neon-purple);
+  box-shadow: 0 0 8px rgba(187, 134, 252, 0.3);
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-accent-purple);
+  border-radius: var(--radius-md);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-neon-purple);
+}
+
+/* Utility Classes */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Cyberpunk Specific Utilities */
+.neon-glow {
+  text-shadow: 0 0 5px var(--color-accent-purple);
+}
+
+.bg-blur {
+  backdrop-filter: blur(4px);
+  background-color: rgba(17, 17, 39, 0.5);
+}
+
+/* Responsive Typography */
+@media screen and (max-width: 768px) {
+  html {
+    font-size: 14px;
   }
 
+  h1 { font-size: 2rem; }
+  h2 { font-size: 1.75rem; }
+  h3 { font-size: 1.5rem; }
+}
+
+/* Print Styles */
+@media print {
   body {
-    @apply bg-black text-green-500;
+    background-color: white;
+    color: black;
   }
 }
 
-@layer utilities {
-  /* Pixel Background */
-  .pixel-bg {
-    background-image: 
-      linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
-      linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
-    background-size: 100% 2px, 3px 100%;
-  }
+/* Animations */
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
+}
 
-  /* Space Background Pattern */
-  .bg-space-pattern {
-    background-color: #000033;
-    background-image: 
-      radial-gradient(white, rgba(255,255,255,0.2) 2px, transparent 40px),
-      radial-gradient(white, rgba(255,255,255,0.15) 1px, transparent 30px),
-      radial-gradient(white, rgba(255,255,255,0.1) 2px, transparent 40px),
-      radial-gradient(rgba(255,255,255,0.4), rgba(255,255,255,0.1) 2px, transparent 30px);
-    background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px;
-    background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
-  }
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
 
-  /* Pixel Text */
-  .pixel-text {
-    font-family: 'PixelFont', monospace;
-    image-rendering: pixelated;
-  }
-
-  /* Neon Colors */
-  .text-neon-green { @apply text-[#39ff14]; }
-  .text-neon-blue { @apply text-[#00ffff]; }
-  .text-neon-purple { @apply text-[#ba55d3]; }
-  .text-neon-yellow { @apply text-[#ffff00]; }
-  .bg-neon-purple { @apply bg-[#ba55d3]; }
-  .bg-dark-terminal { @apply bg-[#001100]; }
-
-  /* Shadow Effects */
-  .shadow-neon {
-    box-shadow: 
-      0 0 7px #fff,
-      0 0 10px #39ff14,
-      0 0 21px #39ff14,
-      0 0 42px #0fa,
-      0 0 82px #0fa,
-      0 0 92px #0fa,
-      0 0 102px #0fa,
-      0 0 151px #0fa;
-  }
-
-  .shadow-text-neon {
-    text-shadow: 
-      0 0 7px #fff,
-      0 0 10px #39ff14,
-      0 0 21px #39ff14,
-      0 0 42px #0fa,
-      0 0 82px #0fa;
-  }
-
-  /* CRT Screen Effect */
-  .crt-screen::after {
-    content: " ";
-    display: block;
-    position: fixed;
-    top: 0;
-    left: 0;
-    bottom: 0;
-    right: 0;
-    background: rgba(18, 16, 16, 0.1);
-    opacity: 0;
-    z-index: 2;
-    pointer-events: none;
-    animation: flicker 0.15s infinite;
-  }
-
-  /* Animations */
-  @keyframes twinkle {
-    0%, 100% { opacity: 0.3; }
-    50% { opacity: 0.7; }
-  }
-
-  .animate-twinkle {
-    animation: twinkle 2s ease-in-out infinite;
-  }
-
-  @keyframes glitch {
-    2%, 64% { transform: translate(2px, 0) skew(0deg); }
-    4%, 60% { transform: translate(-2px, 0) skew(0deg); }
-    62% { transform: translate(0, 0) skew(5deg); }
-  }
-
-  .animate-glitch {
-    animation: glitch 1s linear infinite;
-  }
-
-  .pulse-hover:hover {
-    animation: pulse 1.5s infinite;
-  }
-
-  @keyframes pulse {
-    0% { transform: scale(1); }
-    50% { transform: scale(1.05); }
-    100% { transform: scale(1); }
-  }
-
-  @keyframes flicker {
-    0% { opacity: 0.27861; }
-    5% { opacity: 0.34769; }
-    10% { opacity: 0.23604; }
-    15% { opacity: 0.90626; }
-    20% { opacity: 0.18128; }
-    25% { opacity: 0.83891; }
-    30% { opacity: 0.65583; }
-    35% { opacity: 0.67807; }
-    40% { opacity: 0.26559; }
-    45% { opacity: 0.84693; }
-    50% { opacity: 0.96019; }
-    55% { opacity: 0.08594; }
-    60% { opacity: 0.20329; }
-    65% { opacity: 0.71393; }
-    70% { opacity: 0.27175; }
-    75% { opacity: 0.62210; }
-    80% { opacity: 0.16971; }
-    85% { opacity: 0.00359; }
-    90% { opacity: 0.42317; }
-    95% { opacity: 0.52041; }
-    100% { opacity: 0.22179; }
+/* Dark Mode (Optional) */
+@media (prefers-color-scheme: dark) {
+  :root {
+    /* Dark mode can inherit from the current palette or be customized */
   }
 }
