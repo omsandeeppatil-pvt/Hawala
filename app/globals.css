@@ -1,138 +1,143 @@
-/* globals.css */
-
-/* Import Tailwind's base, components, and utilities */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
-/* Custom base styles using @layer */
 @layer base {
-  /* Default CSS variables */
-  :root {
-    --background: 0 0% 100%;
-    --foreground: 0 0% 3.9%;
-    --card: 0 0% 100%;
-    --card-foreground: 0 0% 3.9%;
-    --popover: 0 0% 100%;
-    --popover-foreground: 0 0% 3.9%;
-    --primary: 0 0% 9%;
-    --primary-foreground: 0 0% 98%;
-    --secondary: 0 0% 96.1%;
-    --secondary-foreground: 0 0% 9%;
-    --muted: 0 0% 96.1%;
-    --muted-foreground: 0 0% 45.1%;
-    --accent: 0 0% 96.1%;
-    --accent-foreground: 0 0% 9%;
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 89.8%;
-    --input: 0 0% 89.8%;
-    --ring: 0 0% 3.9%;
-    --radius: 0.5rem;
+  /* Pixel Font */
+  @font-face {
+    font-family: 'PixelFont';
+    src: url('/path/to/pixel-font.woff2') format('woff2');
   }
 
-  /* Dark theme overrides */
-  .dark {
-    --background: 0 0% 3.9%;
-    --foreground: 0 0% 98%;
-    --card: 0 0% 3.9%;
-    --card-foreground: 0 0% 98%;
-    --popover: 0 0% 3.9%;
-    --popover-foreground: 0 0% 98%;
-    --primary: 0 0% 98%;
-    --primary-foreground: 0 0% 9%;
-    --secondary: 0 0% 14.9%;
-    --secondary-foreground: 0 0% 98%;
-    --muted: 0 0% 14.9%;
-    --muted-foreground: 0 0% 63.9%;
-    --accent: 0 0% 14.9%;
-    --accent-foreground: 0 0% 98%;
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 0 0% 98%;
-    --border: 0 0% 14.9%;
-    --input: 0 0% 14.9%;
-    --ring: 0 0% 83.1%;
-  }
-}
-
-/* Apply base styles using @layer */
-@layer base {
-  /* Apply default border to all elements */
-  * {
-    @apply border-border;
-  }
-
-  /* Apply background and text colors to the body */
   body {
-    @apply bg-background text-foreground;
+    @apply bg-black text-green-500;
   }
 }
 
-/* Custom animations */
 @layer utilities {
-  /* Success checkmark animation */
-  @keyframes checkmark {
-    0% {
-      transform: scale(0);
-      opacity: 0;
-    }
-    50% {
-      transform: scale(1.2);
-    }
-    100% {
-      transform: scale(1);
-      opacity: 1;
-    }
+  /* Pixel Background */
+  .pixel-bg {
+    background-image: 
+      linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+      linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    background-size: 100% 2px, 3px 100%;
   }
 
-  /* Confetti animations */
-  @keyframes confetti-left {
-    0% { 
-      transform: translateY(-100%) translateX(0) rotate(0deg);
-      opacity: 1;
-    }
-    100% { 
-      transform: translateY(100vh) translateX(-20vw) rotate(360deg);
-      opacity: 0;
-    }
+  /* Space Background Pattern */
+  .bg-space-pattern {
+    background-color: #000033;
+    background-image: 
+      radial-gradient(white, rgba(255,255,255,0.2) 2px, transparent 40px),
+      radial-gradient(white, rgba(255,255,255,0.15) 1px, transparent 30px),
+      radial-gradient(white, rgba(255,255,255,0.1) 2px, transparent 40px),
+      radial-gradient(rgba(255,255,255,0.4), rgba(255,255,255,0.1) 2px, transparent 30px);
+    background-size: 550px 550px, 350px 350px, 250px 250px, 150px 150px;
+    background-position: 0 0, 40px 60px, 130px 270px, 70px 100px;
   }
 
-  @keyframes confetti-mid {
-    0% { 
-      transform: translateY(-100%) translateX(0) rotate(0deg);
-      opacity: 1;
-    }
-    100% { 
-      transform: translateY(100vh) translateX(10vw) rotate(360deg);
-      opacity: 0;
-    }
+  /* Pixel Text */
+  .pixel-text {
+    font-family: 'PixelFont', monospace;
+    image-rendering: pixelated;
   }
 
-  @keyframes confetti-right {
-    0% { 
-      transform: translateY(-100%) translateX(0) rotate(0deg);
-      opacity: 1;
-    }
-    100% { 
-      transform: translateY(100vh) translateX(20vw) rotate(360deg);
-      opacity: 0;
-    }
+  /* Neon Colors */
+  .text-neon-green { @apply text-[#39ff14]; }
+  .text-neon-blue { @apply text-[#00ffff]; }
+  .text-neon-purple { @apply text-[#ba55d3]; }
+  .text-neon-yellow { @apply text-[#ffff00]; }
+  .bg-neon-purple { @apply bg-[#ba55d3]; }
+  .bg-dark-terminal { @apply bg-[#001100]; }
+
+  /* Shadow Effects */
+  .shadow-neon {
+    box-shadow: 
+      0 0 7px #fff,
+      0 0 10px #39ff14,
+      0 0 21px #39ff14,
+      0 0 42px #0fa,
+      0 0 82px #0fa,
+      0 0 92px #0fa,
+      0 0 102px #0fa,
+      0 0 151px #0fa;
   }
 
-  /* Animation utility classes */
-  .animate-check-mark {
-    animation: checkmark 0.6s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+  .shadow-text-neon {
+    text-shadow: 
+      0 0 7px #fff,
+      0 0 10px #39ff14,
+      0 0 21px #39ff14,
+      0 0 42px #0fa,
+      0 0 82px #0fa;
   }
 
-  .animate-confetti-l {
-    animation: confetti-left 2s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  /* CRT Screen Effect */
+  .crt-screen::after {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(18, 16, 16, 0.1);
+    opacity: 0;
+    z-index: 2;
+    pointer-events: none;
+    animation: flicker 0.15s infinite;
   }
 
-  .animate-confetti-m {
-    animation: confetti-mid 2.5s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  /* Animations */
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.3; }
+    50% { opacity: 0.7; }
   }
 
-  .animate-confetti-r {
-    animation: confetti-right 2.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  .animate-twinkle {
+    animation: twinkle 2s ease-in-out infinite;
+  }
+
+  @keyframes glitch {
+    2%, 64% { transform: translate(2px, 0) skew(0deg); }
+    4%, 60% { transform: translate(-2px, 0) skew(0deg); }
+    62% { transform: translate(0, 0) skew(5deg); }
+  }
+
+  .animate-glitch {
+    animation: glitch 1s linear infinite;
+  }
+
+  .pulse-hover:hover {
+    animation: pulse 1.5s infinite;
+  }
+
+  @keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.05); }
+    100% { transform: scale(1); }
+  }
+
+  @keyframes flicker {
+    0% { opacity: 0.27861; }
+    5% { opacity: 0.34769; }
+    10% { opacity: 0.23604; }
+    15% { opacity: 0.90626; }
+    20% { opacity: 0.18128; }
+    25% { opacity: 0.83891; }
+    30% { opacity: 0.65583; }
+    35% { opacity: 0.67807; }
+    40% { opacity: 0.26559; }
+    45% { opacity: 0.84693; }
+    50% { opacity: 0.96019; }
+    55% { opacity: 0.08594; }
+    60% { opacity: 0.20329; }
+    65% { opacity: 0.71393; }
+    70% { opacity: 0.27175; }
+    75% { opacity: 0.62210; }
+    80% { opacity: 0.16971; }
+    85% { opacity: 0.00359; }
+    90% { opacity: 0.42317; }
+    95% { opacity: 0.52041; }
+    100% { opacity: 0.22179; }
   }
 }

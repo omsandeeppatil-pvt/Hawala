@@ -1,0 +1,264 @@
+/* Import Retro and Pixel Fonts */
+@import url('https://fonts.googleapis.com/css2?family=VT323&family=Press+Start+2P&family=Orbitron:wght@400;500;700&display=swap');
+
+/* CSS Variables for Easy Theming */
+:root {
+  /* Color Palette */
+  --color-bg-primary: #0a0a1a;
+  --color-bg-secondary: #111127;
+  --color-accent-purple: #8a4fff;
+  --color-accent-neon-purple: #bb86fc;
+  --color-text-primary: #e0e0ff;
+  --color-text-secondary: #bb86fc;
+  --color-border: #8a4fff;
+
+  /* Typography */
+  --font-primary: 'Orbitron', sans-serif;
+  --font-pixel: 'Press Start 2P', cursive;
+  --font-mono: 'VT323', monospace;
+}
+
+/* Global Reset and Base Styles */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-accent-purple) var(--color-bg-secondary);
+}
+
+body {
+  background-color: var(--color-bg-primary);
+  color: var(--color-text-primary);
+  font-family: var(--font-primary);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+/* Pixel Star Background */
+.cyberpunk-star-background {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-bg-primary);
+  z-index: -1;
+  pointer-events: none;
+}
+
+.cyberpunk-star {
+  position: absolute;
+  background-color: rgba(255, 255, 255, 0.5);
+  border-radius: 50%;
+  opacity: 0.7;
+  transition: opacity 0.5s ease;
+}
+
+.cyberpunk-star:hover {
+  opacity: 1;
+}
+
+/* Dotted Overlay Effect */
+.cyberpunk-app-container::before {
+  content: "";
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-image: 
+    linear-gradient(rgba(138, 79, 255, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(138, 79, 255, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* CRT Screen Effect */
+.cyberpunk-crt-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%),
+    linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+  background-size: 100% 2px, 3px 100%;
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0.1;
+}
+
+/* Loading Screen */
+.cyberpunk-loading-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-bg-primary);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.cyberpunk-loading-content {
+  text-align: center;
+}
+
+.cyberpunk-loading-title {
+  font-family: var(--font-pixel);
+  font-size: 3rem;
+  color: var(--color-accent-neon-purple);
+  margin-bottom: 1rem;
+  text-shadow: 0 0 10px var(--color-accent-purple);
+  animation: glitch 1s infinite;
+}
+
+.cyberpunk-loading-text {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  color: var(--color-text-secondary);
+  margin-bottom: 2rem;
+  letter-spacing: 3px;
+}
+
+.cyberpunk-loading-icon {
+  width: 4rem;
+  height: 4rem;
+  color: var(--color-accent-purple);
+  animation: spin 2s linear infinite;
+}
+
+/* Main App Container */
+.cyberpunk-app-container {
+  min-height: 100vh;
+  padding: 2rem;
+  position: relative;
+}
+
+/* Header Styles */
+.cyberpunk-header-section {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.cyberpunk-main-title {
+  font-family: var(--font-pixel);
+  font-size: 4rem;
+  color: var(--color-accent-neon-purple);
+  text-shadow: 0 0 15px var(--color-accent-purple);
+  letter-spacing: 5px;
+  margin-bottom: 1rem;
+}
+
+.cyberpunk-header-subtitle {
+  font-family: var(--font-mono);
+  font-size: 1.5rem;
+  color: var(--color-text-secondary);
+  letter-spacing: 5px;
+}
+
+/* Content Panels */
+.cyberpunk-content-panel {
+  background-color: rgba(17, 17, 39, 0.7);
+  border: 2px solid var(--color-border);
+  border-radius: 10px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+  backdrop-filter: blur(10px);
+  box-shadow: 
+    0 0 15px rgba(138, 79, 255, 0.2),
+    inset 0 0 20px rgba(138, 79, 255, 0.1);
+  transition: all 0.3s ease;
+}
+
+.cyberpunk-content-panel:hover {
+  transform: scale(1.02);
+  box-shadow: 
+    0 0 25px rgba(138, 79, 255, 0.4),
+    inset 0 0 30px rgba(138, 79, 255, 0.2);
+}
+
+.cyberpunk-section-title {
+  font-family: var(--font-pixel);
+  font-size: 1.8rem;
+  color: var(--color-accent-neon-purple);
+  margin-bottom: 1rem;
+  text-shadow: 0 0 10px var(--color-accent-purple);
+}
+
+/* Face Scan Button */
+.cyberpunk-face-scan-container {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  z-index: 50;
+}
+
+.cyberpunk-face-scan-btn {
+  background-color: rgba(138, 79, 255, 0.2);
+  border: 2px solid var(--color-border);
+  border-radius: 50%;
+  padding: 0.75rem;
+  transition: all 0.3s ease;
+}
+
+.cyberpunk-face-scan-btn:hover {
+  background-color: rgba(138, 79, 255, 0.4);
+  transform: scale(1.1);
+}
+
+.cyberpunk-face-scan-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+  color: var(--color-accent-neon-purple);
+}
+
+/* Animations */
+@keyframes glitch {
+  2%, 64% { transform: translate(2px, 0) skew(0deg); }
+  4%, 60% { transform: translate(-2px, 0) skew(0deg); }
+  62% { transform: translate(0, 0) skew(5deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+/* Responsive Adjustments */
+@media (max-width: 768px) {
+  .cyberpunk-main-title {
+    font-size: 2.5rem;
+  }
+
+  .cyberpunk-header-subtitle {
+    font-size: 1.2rem;
+  }
+
+  .cyberpunk-content-panel {
+    padding: 1rem;
+  }
+}
+
+/* Scrollbar Styling */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-bg-secondary);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-accent-purple);
+  border-radius: 5px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-accent-neon-purple);
+}
